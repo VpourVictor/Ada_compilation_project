@@ -115,7 +115,7 @@ def get_token(name_file):
     # on lit tout, si le total n'est pas dans le dictionnaire,
     # on reconnait : séparément les caractères
 
-    print(token_list)
+    #print(token_list)
 
     # fermeture du fichier
     file.close()
