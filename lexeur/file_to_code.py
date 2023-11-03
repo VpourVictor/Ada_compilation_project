@@ -1,4 +1,5 @@
 # import du dictionnaire
+from dictionnaire import *
 
 def get_token(name_file):
     # ouverture du fichier
@@ -10,6 +11,7 @@ def get_token(name_file):
     for ligne in file:
         for char in ligne:
             print(char)
+
             # si le caractère est un espace, on passe au caractère suivant
             if char == " ":
                 continue
@@ -19,7 +21,7 @@ def get_token(name_file):
             # si le caractère est un tab, on passe au caractère suivant
             elif char == "\t":
                 continue
-
+   
     # transformation des caractères du fichier en liste de token
     # par rapport au dictionnaire
     # on retourne une liste de token
