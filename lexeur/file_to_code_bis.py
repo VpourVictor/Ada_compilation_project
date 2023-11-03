@@ -16,6 +16,8 @@ def get_token(name_file):
             #print(char)
 
             # si le caractère est un espace, un retour à la ligne ou un tab ou une balise de commentaire, on passe au caractère suivant, 
+            # A MODIF SI ON CONSIDERE ID : 
+            # if char == " " or char == "\n" or char == "\t" or char == '#' or char not in [a-z A-Z 0-1] ou ajouter une variable peak et faire comme dans le bouquin:
             if char == " " or char == "\n" or char == "\t" or char == '#':
 
                 # l'un des cas au dessus signifie que l'on change de token
@@ -26,13 +28,14 @@ def get_token(name_file):
                 
 
                 #si il n'est pas reconnu on ajoute le code ASCII de chaque caractère dans la token_list
-                else :
+                else :   
                       
-                      
-                      
-                      for chara in actual_char :
+                    for chara in actual_char :
                             #print('ajout dans token_list de :', term.get(chara), 'correspondant à :', chara)
                             token_list.append(term.get(chara))
+
+# A MODIF SI ON CONSIDERE ID : 
+#                   token_list.append((term.get('id'), actual_char)
                 
                 #print('on reset')
                 actual_char = ''
