@@ -85,12 +85,19 @@ def get_token(name_file):
 
             # dans le cas où on rencontre un autre caractère que 'espace, retour à la ligne ou tab'
             # alors on l'ajoute au token en train d'être lu actuellement
+            elif i == l-1 :
+                print("dans ce cas là i = l et actual_char =", actual_char)
+                actual_char += ligne[i]
+                list_char.append(actual_char)
+                actual_char = ''
+                break
+            
             else :
                 actual_char += ligne[i]
                 i += 1
-                # print('char actuel =', actual_char)
+                print('char actuel =', actual_char)
 
-    #print(list_char)
+    print(list_char)
     # Cette deuxième partie ajoute les tokens à la liste des tokens
     for string in list_char :
         treat_a_string(string, token_list)
@@ -111,11 +118,11 @@ def get_token(name_file):
     # on lit tout, si le total n'est pas dans le dictionnaire,
     # on reconnait : séparément les caractères
 
-    #print(token_list)
+    print(token_list)
 
     # fermeture du fichier
     #file.close()
     
     return token_list
 
-#get_token(".\exemples\exemple_if.ada")
+get_token(".\exemples\exemple_if.ada")
