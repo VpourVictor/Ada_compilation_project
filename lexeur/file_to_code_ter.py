@@ -32,7 +32,7 @@ def treat_a_string(string, token_list) :
             len_str = len(string)
             i = 0
 
-            while string[i].isdigit() and i < len_str :
+            while i < len_str and string[i].isdigit()  :
                 i += 1
 
             if i == len_str :
@@ -115,7 +115,7 @@ def get_token(name_file):
     # on lit tout, si le total n'est pas dans le dictionnaire,
     # on reconnait : séparément les caractères
 
-    #print(token_list)
+    print(token_list)
 
     # fermeture du fichier
     file.close()
