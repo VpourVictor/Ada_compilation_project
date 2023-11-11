@@ -32,7 +32,7 @@ def treat_a_string(string, token_list) :
 
             # bug avec les nombres
             # prendre en compte le 0
-            while i < len_str and string[i].isdigit() or string[i] == '0':
+            while i < len_str and (string[i].isdigit() or string[i] == '0'):
                 i += 1
 
             if i == len_str :
@@ -111,11 +111,11 @@ def get_token(name_file):
     # on lit tout, si le total n'est pas dans le dictionnaire,
     # on reconnait : séparément les caractères
 
-   # print(token_list)
+    print(token_list)
 
     # fermeture du fichier
-    file.close()
+    #file.close()
     # print(list_char)
     return token_list
 
-#get_token("exemple.ada")
+#get_token(".\exemples\exemple_if.ada")
