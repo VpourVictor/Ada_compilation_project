@@ -15,7 +15,7 @@ def treat_a_string(string, token_list) :
             len_str = len(string)
             i = 0
 
-            while i < len_str and (string[i].isalpha() or string[i].isdigit() or string[i] == '_')  :
+            while i < len_str and (string[i].isalpha() or string[i].isdigit() or string[i] == '_' or string[i] == '0')  :
                 i += 1
             
             if i == len_str :
@@ -78,8 +78,9 @@ def get_token(name_file):
 
             # cas du commentaire : on ne lit plus la ligne
             elif ligne[i] == '-' and i != l-1 and ligne[i+1] == '-' :
-                list_char.append(actual_char)
-                actual_char = ''
+                if actual_char != '' :
+                    list_char.append(actual_char)
+                    actual_char = ''
                 i = l
 
             # dans le cas où on rencontre un autre caractère que 'espace, retour à la ligne ou tab'
@@ -89,6 +90,7 @@ def get_token(name_file):
                 i += 1
                 # print('char actuel =', actual_char)
 
+    #print(list_char)
     # Cette deuxième partie ajoute les tokens à la liste des tokens
     for string in list_char :
         treat_a_string(string, token_list)
@@ -109,11 +111,11 @@ def get_token(name_file):
     # on lit tout, si le total n'est pas dans le dictionnaire,
     # on reconnait : séparément les caractères
 
-    print(token_list)
+    #print(token_list)
 
     # fermeture du fichier
     #file.close()
-    # print(list_char)
+    
     return token_list
 
-get_token(".\exemples\exemple_if.ada")
+#get_token(".\exemples\exemple_if.ada")
