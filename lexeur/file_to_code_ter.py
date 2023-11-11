@@ -30,8 +30,6 @@ def treat_a_string(string, token_list) :
             len_str = len(string)
             i = 0
 
-            # bug avec les nombres
-            # prendre en compte le 0
             while i < len_str and (string[i].isdigit() or string[i] == '0'):
                 i += 1
 
@@ -118,4 +116,4 @@ def get_token(name_file):
     # print(list_char)
     return token_list
 
-#get_token(".\exemples\exemple_if.ada")
+get_token(".\exemples\exemple_if.ada")
