@@ -1,5 +1,5 @@
 # import du dictionnaire
-import dictionnaire_ter as dictionnaire_ter
+import lexeur.dictionnaire_ter as dictionnaire_ter
 
 
 # definition d'une fonction qui gère un string de char découpé dans la partie 1 de get_token
@@ -76,7 +76,7 @@ def get_token(name_file):
             # print(char)
             # si le caractère est un espace, un retour à la ligne ou un tab ou une balise de commentaire,
             # on passe au caractère suivant,
-            if ligne[i] == " " or ligne[i] == "\n" or ligne[i] == "\t" or ligne[i] == '#':
+            if ligne[i] == " " or ligne[i] == "\n" or ligne[i] == "\t":
                 # on peut mettre autant d'espace/tab/ligne qu'on veut
                 if actual_char != '':
                     list_char.append(actual_char)
@@ -97,11 +97,10 @@ def get_token(name_file):
                 break
 
             elif ligne[i] not in dictionnaire_ter.cle:
-
                 # print(ord(ligne[i]))
                 # print(chr(172))
 
-                print('erreur : caractère non reconnu à la ligne ' + str(num_line))
+                print('erreur : caractère ' + ligne[i] + ' non reconnu à la ligne ' + str(num_line))
                 # on incrémente quand même i pour ne pas rester bloqué sur le caractère non reconnu
                 # choix de passer à la suite (ignorer le caractère non reconnu)
                 i += 1

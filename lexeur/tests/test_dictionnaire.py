@@ -1,5 +1,5 @@
 import unittest
-from lexeur import dictionnaire_ter as dictionnaire_ter
+import lexeur.dictionnaire_ter as dictionnaire_ter
 
 
 class MyTestCase(unittest.TestCase):
