@@ -1,0 +1,23 @@
+:= -> choix de faire :  puis =
+et transmettre à l'analyse lexicale
+
+" -> non reconnu car chaîne de caractères donc on le traite comme non reconnu
+puis on passe le reste à l'analyse syntaxique qui verra qu'il y a un prblm
+
+--------------------------------------------------------------------------
+
+
+Pour l'analyse syntaxique
+Terminal ou mot clé -> lire le suivant
+Sinon analyse du « param »
+si lecture de quelque chose qui n'est pas à sa place, erreur syntaxique
+
+puis intéger les fonctions pour la génération de l'arbre abstrait
+mais il doit être correct
++ l'opérateur est important, plus il est bas dans l'arbre
+donc pour cela, il faut bien travailler la grammaire
+
+voir priorité des opérateurs (+, -, *, /, rem, and, or, not, <, <=, >, >=, =, /=)
+
+si pas LL(1) mais LL(2) ou LL(3)
+on sait où c'est mais faire attention lors de l'implémentation

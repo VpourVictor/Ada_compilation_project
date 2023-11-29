@@ -1,6 +1,7 @@
-from file_to_code_ter import get_token
+import lexeur.file_to_code_ter as file
 
 if __name__ == '__main__':
-    print(get_token("exemples/hello.ada"))
-    print(get_token("exemples/exemple.ada"))
-    print(get_token("exemples/exemple_if.ada"))
+    print(file.get_token("exemples/hello.ada"))
+    # print(file.get_token("exemples/exemple.ada"))
+    # print(file.get_token("exemples/exemple_if.ada"))
+    # print(file.get_token("exemples/exemple_erreur.ada"))
