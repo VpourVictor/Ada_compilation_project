@@ -3,7 +3,7 @@ import lexeur.file_to_code_ter as file
 
 
 class MyTestCase(unittest.TestCase):
-    def test_something(self):
+    def test_token_list(self):
         token_list_test = []
         token_list_true = [51]
         self.assertEqual(file.treat_a_string("3", token_list_test), token_list_true)
