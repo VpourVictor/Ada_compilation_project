@@ -5,6 +5,7 @@ from lexeur.dictionnaire_ter import get_term
 def fonction_N1(list_token):
     error = False
     count = 0
+    # todo
     if list_token[0] == 284:  # 284 = with
         count += 1
     else:
@@ -29,16 +30,25 @@ def fonction_N1(list_token):
         error = True
         print("attendu : Text_IO, reçu : " + find_receive(list_token[3]))
 
-    if list_token[4] == 59:  # 59 = ;
-        count += 1
-    else:
-        error = True
+    if list_token[4] != 59:  # 59 = ;
         print("attendu : ;, reçu : " + find_receive(list_token[4]))
 
+    if list_token[5] != 282: # 282 = use
+        print("attendu : use, reçu : " + find_receive(list_token[5]))
+
+    if list_token[6] != 285: # 285 = Ada
+        print("attendu : Ada, reçu : " + find_receive(list_token[6]))
+
+    if list_token[7] != 46: # 46 = .
+        print("attendu : ., reçu : " + find_receive(list_token[7]))
+
+    if list_token[8] != 285: # 285 = Text_IO
+        print("attendu : Text_IO, reçu : " + find_receive(list_token[8]))
+
     if error:
-        return [False, count]
+        return [False, 8]
     else:
-        return [True, count]
+        return [True, 8]
 
 
 def find_receive(elem):
