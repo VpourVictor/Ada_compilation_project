@@ -1,1 +1,1 @@
-with Ada.Text_IO; -- Bibliothèque
+test if .Text_IO; -- Bibliothèque
