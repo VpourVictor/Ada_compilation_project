@@ -4,17 +4,17 @@ count_tmp = 0 #
 count = 0
 list_token = get_token("name_file")
 
-def fonction_ (list_token):
-    global count
-    global count_tmp
-
 def fonction_N16(): #N16 ::= 34 A16 34
     global count
     global count_tmp
-    local_ind = 0
+
     if reader_carac(34) :
         if fonction_A16():
             if reader_carac(34) :
+                count = count_tmp
+                count_tmp = count
+                return True
+    count_tmp = count
     return False
 
 def fonction_A16(): #A16 ::= N12 | N13 | 44 | 58 | 40 | 41 | 45 | 61 | 60 | 62 | 43 | 42 | 47 | 46 | 95 | 34
