@@ -8,7 +8,10 @@ def fonction_N1(list_token):
     # todo
     if list_token[0] == 284:  # 284 = with
         count += 1
-    else:
+    #else if compare([0][1], "with") < 2 :
+    #    print("did you mean with, reçu : " + find_receive(list_token[0]))
+    #    count += 1
+    else :
         error = True
         print("attendu : with, reçu : " + find_receive(list_token[0]))
 
