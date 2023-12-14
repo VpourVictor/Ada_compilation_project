@@ -1,18 +1,16 @@
 from parseur.compare import compare
 
 
-def reader_carac(val, token_list, count_tmp, count):
+def reader_carac(val, token_list, count_tmp):
+    if count_tmp >= len(token_list):
+        return False, count_tmp
     # tuple ou pas
-    # si c'est un couple, on check si c'est la chaine qu'on attend
+    # si c'est un couple ou int et que c'est ce qu'on cherche, ok
     # si ce n'est pas le cas, on passe dans compare
-
-    # si c'est un int, on test si c'est la valeur qu'on attend
-    # si ou, on renvoie True, sinon false
-
-    if val == token_list[count_tmp]:  # si bonne valeur
+    if val == token_list[count_tmp]:  # si bonne valeur (tuple ou int)
         count_tmp += 1
         return True, count_tmp
-    elif compare(val, token_list[count_tmp], count_tmp, count):
+    elif compare(val, token_list[count_tmp], count_tmp):
         count_tmp += 1
         return True, count_tmp
     else:
