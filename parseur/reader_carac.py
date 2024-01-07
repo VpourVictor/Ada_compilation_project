@@ -10,8 +10,9 @@ def reader_carac(val, token_list, count_tmp):
     if val == token_list[count_tmp]:  # si bonne valeur (tuple ou int)
         count_tmp += 1
         return True, count_tmp
-    elif compare(val, token_list[count_tmp], count_tmp):
-        count_tmp += 1
-        return True, count_tmp
+    #elif compare(val, token_list[count_tmp], count_tmp):
+        #print("compare")
+        #count_tmp += 1
+        #return True, count_tmp
     else:
         return False, count_tmp
