@@ -17,7 +17,9 @@ cle = ['!', '\'', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/',
        'access', 'and', 'begin', 'else', 'elsif', 'end', 'false', 'for', 'function', 'if', 'in', 'is', 'loop', 'new',
        'not', 'null',
        'or', 'out', 'procedure', 'record', 'rem', 'return', 'reverse', 'then', 'true', 'type', 'use', 'while', 'with',
-       'id', 'num', 'character', 'val']
+       'id', 'num', 'character', 'val'
+       'Ada'
+       ]
 # ajout de 'id' et de 'num'
 
 # tableau contenant les codes associés aux caractères et mots clés
@@ -32,7 +34,8 @@ valeur = [33, 34, 35, 36, 37, 38, 40, 41, 42, 43, 44, 45, 46, 47,
           256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269,
           270, 271,
           272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284,
-          285, 286, 287, 288]
+          285, 286, 287, 288,
+          289]
 # ajout de '285' et '286'
 
 # remplissage du dictionnaire
