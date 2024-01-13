@@ -37,7 +37,11 @@ def treat_a_string(string, token_list):
             if i == len_str:
                 token_list.append((term.get('num'), string))
             else:
-                token_list.append((term.get('num'), string[:i]))
+                if term.__contains__(string[:i]):
+                    token_list.append(term.get(string[:i]))
+                else:
+                    token_list.append((term.get('num'), string[:i]))
+
                 # appel récursif
                 treat_a_string(string[i:], token_list)
 
