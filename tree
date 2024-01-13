@@ -1,0 +1,7 @@
+// Tree
+digraph {
+	root_Root [label=Root]
+	root_Root_Child1 [label=Child1]
+	root_Root_Child2 [label=Child2]
+	root_Root_Child2_Child3 [label=Child3]
+}
