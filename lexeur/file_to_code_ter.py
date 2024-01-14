@@ -20,9 +20,15 @@ def treat_a_string(string, token_list):
                 i += 1
 
             if i == len_str:
-                token_list.append((term.get('id'), string))
+                if term.__contains__(string):
+                    token_list.append(term.get(string))
+                else:
+                    token_list.append((term.get('id'), string))
             else:
-                token_list.append((term.get('id'), string[:i]))
+                if term.__contains__(string[:i]):
+                    token_list.append(term.get(string[:i]))
+                else:
+                    token_list.append((term.get('id'), string[:i]))
                 # appel récursif
                 treat_a_string(string[i:], token_list)
 
@@ -122,6 +128,14 @@ def get_token(name_file):
     # Cette deuxième partie ajoute les tokens à la liste des tokens
     for string in list_char:
         treat_a_string(string, token_list)
+
+    for i in range(len(token_list)):
+        if token_list[i] in [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86,
+          87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116,
+                                   117, 118, 119, 120, 121, 122]:
+            token_list[i] = (285, chr(token_list[i]))
+        if token_list[i] in [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]:
+            token_list[i] = (286, chr(token_list[i]))
 
     return token_list
 
