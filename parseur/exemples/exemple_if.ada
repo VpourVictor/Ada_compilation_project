@@ -1,8 +1,16 @@
-with TEXT_IO; use TEXT_IO;
+with Ada.Text_IO; use Ada.Text_IO;
 
-PROCEDURE IfSamples IS BEGIN
-   age : Integer := 32309 ;
-   IF age = 200 THEN
-      PUT_LINE ("La condition est vrai");
-   END IF;
-END IfSamples;
+procedure Example_If is
+   -- Déclaration de la variable
+   X : Integer;
+
+begin
+   -- Utilisation de l'instruction if sans print
+   if X > 0 then
+      test; -- Aucune action pour le cas où le nombre est positif
+   elsif X = 0 then
+      test; -- Aucune action pour le cas où le nombre est nul
+   else
+      test; -- Aucune action pour le cas où le nombre est négatif
+   end if;
+end Example_If;
