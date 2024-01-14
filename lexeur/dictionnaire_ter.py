@@ -3,7 +3,7 @@
 
 # initialisation du dictionnaire vide
 term = {}
-
+term2 = {}
 # tableau contenant l'ensemble des caractères et mots clés reconnus par le lexeur
 cle = ['!', '\'', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/',
        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -38,6 +38,9 @@ valeur = [33, 34, 35, 36, 37, 38, 40, 41, 42, 43, 44, 45, 46, 47,
 # remplissage du dictionnaire
 for i in range(len(cle)):
     term[cle[i]] = valeur[i]
+
+for i in range(len(valeur)):
+    term2[valeur[i]] = cle[i]
 
 
 def get_term():
