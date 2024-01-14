@@ -7,9 +7,9 @@ if __name__ == '__main__':
     # print(token_list)
     # print(parseur.functions.fonction_N1(token_list))
     print(dictionnaire_ter.term)
-    # token_list = file.get_token("exemples/exemple_calcul.ada") -> fonctionne
+    # token_list = file.get_token("exemples/exemple_calcul.ada") # -> fonctionne
     # token_list = file.get_token("exemples/exemple.ada")
-    # token_list = file.get_token("exemples/exemple_petite_procedure.ada") -> fonctionne
-    token_list = file.get_token("exemples/exemple_procedure.ada")
+    token_list = file.get_token("exemples/exemple_petite_procedure.ada") # -> fonctionne
+    # token_list = file.get_token("exemples/exemple_procedure.ada")
     print(token_list)
     print(parseur.functions.fonction_N1(token_list))

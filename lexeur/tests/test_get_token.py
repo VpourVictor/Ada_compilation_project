@@ -1,0 +1,1 @@
+# todo faire le test pour voir dans le cas où on passe tout une ligne (if avec des var et num)
