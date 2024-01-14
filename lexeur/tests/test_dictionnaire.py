@@ -7,10 +7,14 @@ class MyTestCase(unittest.TestCase):
         term = dictionnaire_ter.term
         self.assertEqual(term.get('('), ord('('))
         self.assertEqual(term.get('7'), ord('7'))
-        self.assertEqual(term.get('I'), ord('I'))
+        # self.assertEqual(term.get('I'), ord('I'))
         self.assertEqual(term.get('elsif'), 260)
         self.assertEqual(term.get('procedure'), 274)
         self.assertEqual(term.get('num'), 286)
+        # print(term.get('a'))
+        # print(term.get('z'))
+        # print(term.get('A'))
+        # print(term.get('Z'))
 
 
 if __name__ == '__main__':

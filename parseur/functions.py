@@ -16,8 +16,10 @@ def switch_fonction(name, token_list, count_tmp):
             print("---------------------------------------------------------------------> entrée A3")
             result = fonction_A3(token_list, count_tmp)
         case 'A4':
+            print("---------------------------------------------------------------------> entrée A4")
             result = fonction_A4(token_list, count_tmp)
         case 'A42':
+            print("---------------------------------------------------------------------> entrée A42")
             result = fonction_A42(token_list, count_tmp)
         case 'A5':
             print("---------------------------------------------------------------------> entrée A5")
@@ -26,6 +28,7 @@ def switch_fonction(name, token_list, count_tmp):
             print("---------------------------------------------------------------------> entrée A52")
             result = fonction_A52(token_list, count_tmp)
         case 'A6':
+            print("---------------------------------------------------------------------> entrée A6")
             result = fonction_A6(token_list, count_tmp)
         case 'A7':
             print("---------------------------------------------------------------------> entrée A7")
@@ -34,47 +37,64 @@ def switch_fonction(name, token_list, count_tmp):
             print("---------------------------------------------------------------------> entrée A8")
             result = fonction_A8(token_list, count_tmp)
         case 'A82':
+            print("---------------------------------------------------------------------> entrée A82")
             result = fonction_A82(token_list, count_tmp)
         case 'A9':
+            print("---------------------------------------------------------------------> entrée A9")
             result = fonction_A9(token_list, count_tmp)
         case 'A10':
+            print("---------------------------------------------------------------------> entrée A10")
             result = fonction_A10(token_list, count_tmp)
         case 'A102':
+            print("---------------------------------------------------------------------> entrée A102")
             result = fonction_A102(token_list, count_tmp)
         case 'A11':
+            print("---------------------------------------------------------------------> entrée A11")
             result = fonction_A11(token_list, count_tmp)
         case 'A12':
+            print("---------------------------------------------------------------------> entrée A12")
             result = fonction_A12(token_list, count_tmp)
         case 'A13':
+            print("---------------------------------------------------------------------> entrée A13")
             result = fonction_A13(token_list, count_tmp)
         case 'A14':
+            print("---------------------------------------------------------------------> entrée A14")
             result = fonction_A14(token_list, count_tmp)
         case 'A15':
+            print("---------------------------------------------------------------------> entrée A15")
             result = fonction_A15(token_list, count_tmp)
         case 'A16':
+            print("---------------------------------------------------------------------> entrée A16")
             result = fonction_A16(token_list, count_tmp)
         case 'N11':
+            print("---------------------------------------------------------------------> entrée N11")
             result = fonction_N11(token_list, count_tmp)
         case 'N111':
+            print("---------------------------------------------------------------------> entrée N111")
             result = fonction_N111(token_list, count_tmp)
         case 'N12':
+            print("---------------------------------------------------------------------> entrée N12")
             result = fonction_N12(token_list, count_tmp)
         case 'N13':
+            print("---------------------------------------------------------------------> entrée N13")
             result = fonction_N13(token_list, count_tmp)
-        case 'N15':
-            result = fonction_N15(token_list, count_tmp)
         case 'N16':
+            print("---------------------------------------------------------------------> entrée N16")
             result = fonction_N16(token_list, count_tmp)
         case 'N2':
             print("---------------------------------------------------------------------> entrée N2")
             result = fonction_N2(token_list, count_tmp)
         case 'N21':
+            print("---------------------------------------------------------------------> entrée N21")
             result = fonction_N21(token_list, count_tmp)
         case 'N22':
+            print("---------------------------------------------------------------------> entrée N22")
             result = fonction_N22(token_list, count_tmp)
         case 'N3':
+            print("---------------------------------------------------------------------> entrée N3")
             result = fonction_N3(token_list, count_tmp)
         case 'N4':
+            print("---------------------------------------------------------------------> entrée N4")
             result = fonction_N4(token_list, count_tmp)
         case 'N5':
             print("---------------------------------------------------------------------> entrée N5")
@@ -83,58 +103,82 @@ def switch_fonction(name, token_list, count_tmp):
             print("---------------------------------------------------------------------> entrée N6")
             result = fonction_N6(token_list, count_tmp)
         case 'N7':
+            print("---------------------------------------------------------------------> entrée N7")
             result = fonction_N7(token_list, count_tmp)
         case 'N71':
+            print("---------------------------------------------------------------------> entrée N71")
             result = fonction_N71(token_list, count_tmp)
         case 'N8':
+            print("---------------------------------------------------------------------> entrée N8")
             result = fonction_N8(token_list, count_tmp)
         case 'N9':
+            print("---------------------------------------------------------------------> entrée N9")
             result = fonction_N9(token_list, count_tmp)
         case 'N92':
+            print("---------------------------------------------------------------------> entrée N92")
             result = fonction_N92(token_list, count_tmp)
         case 'N93':
+            print("---------------------------------------------------------------------> entrée N93")
             result = fonction_N93(token_list, count_tmp)
-        case 'N15':
-            result = fonction_N15(token_list, count_tmp)
         case 'N16':
+            print("---------------------------------------------------------------------> entrée N16")
             result = fonction_N16(token_list, count_tmp)
         case 'EXPRA':
+            print("---------------------------------------------------------------------> entrée EXPRA")
             result = fonction_EXPRA(token_list, count_tmp)
         case 'EXPRA1':
+            print("---------------------------------------------------------------------> entrée EXPRA1")
             result = fonction_EXPRA1(token_list, count_tmp)
         case 'EXPR1':
+            print("---------------------------------------------------------------------> entrée EXPR1")
             result = fonction_EXRPR1(token_list, count_tmp)
         case 'EXPRB1':
+            print("---------------------------------------------------------------------> entrée EXPRB1")
             result = fonction_EXPRB1(token_list, count_tmp)
         case 'EXPRB':
+            print("---------------------------------------------------------------------> entrée EXPRB")
             result = fonction_EXPRB(token_list, count_tmp)
         case 'EXPR2':
+            print("---------------------------------------------------------------------> entrée EXPR2")
             result = fonction_EXPR2(token_list, count_tmp)
         case 'EXPR3':
+            print("---------------------------------------------------------------------> entrée EXPR3")
             result = fonction_EXPR3(token_list, count_tmp)
         case 'EXPRC':
+            print("---------------------------------------------------------------------> entrée EXPRC")
             result = fonction_EXPRC(token_list, count_tmp)
         case 'EXPR4':
+            print("---------------------------------------------------------------------> entrée EXPR4")
             result = fonction_EXPR4(token_list, count_tmp)
         case 'EXPRE':
+            print("---------------------------------------------------------------------> entrée EXPRE")
             result = fonction_EXPRE(token_list, count_tmp)
         case 'EXPRE1':
+            print("---------------------------------------------------------------------> entrée EXPRE1")
             result = fonction_EXPRE1(token_list, count_tmp)
         case 'EXPRE2':
+            print("---------------------------------------------------------------------> entrée EXPRE2")
             result = fonction_EXPRE2(token_list, count_tmp)
         case 'EXPR5':
+            print("---------------------------------------------------------------------> entrée EXPR5")
             result = fonction_EXPR5(token_list, count_tmp)
         case 'EXPRF':
+            print("---------------------------------------------------------------------> entrée EXPRF")
             result = fonction_EXPRF(token_list, count_tmp)
         case 'EXPR6':
+            print("---------------------------------------------------------------------> entrée EXPR6")
             result = fonction_EXPR6(token_list, count_tmp)
         case 'EXPRG':
+            print("---------------------------------------------------------------------> entrée EXPRG")
             result = fonction_EXPRG(token_list, count_tmp)
         case 'EXPR7':
+            print("---------------------------------------------------------------------> entrée EXPR7")
             result = fonction_EXPR7(token_list, count_tmp)
         case 'EXPR8':
+            print("---------------------------------------------------------------------> entrée EXPR8")
             result = fonction_EXPR8(token_list, count_tmp)
         case '.':
+            print("---------------------------------------------------------------------> entrée .")
             result = False, count_tmp
 
     return result
@@ -144,16 +188,17 @@ def rec(list_att, token_list, count_tmp, count, local):
     if count_tmp == len(token_list) - 1:
         return True, count_tmp
 
-    print("On commence le rec local avec la lecture de : " + str(list_att[local]))
+
+    print("On commence le rec local avec la lecture de : " + str(list_att[local]) + " liste locale : " + str(list_att))
     if type(list_att[local]) == int:
         result = reader_carac(list_att[local], token_list, count_tmp)
         if result[0]:
             count_tmp = result[1]
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("INT : On termine le tableau local, dernier terme lu = " + str(list_att[local]))
+                print("INT : On termine le tableau local, dernier terme lu = " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp
-            print("INT : On continue le local, ON RENVOIE VRAI avec count_tmp : ", count_tmp)
+            print("INT : On continue le local, ON RENVOIE VRAI en lisant " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1)
         else:
             print("INT : On a pas trouvé le bon caractère, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
@@ -165,9 +210,9 @@ def rec(list_att, token_list, count_tmp, count, local):
             count_tmp = count
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("NON TERM : On termine le tableau local, dernier terme lu = " + str(list_att[local]))
+                print("NON TERM : On termine le tableau local, dernier terme lu = " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp
-            print("NON TERM : On continue le local, ON RENVOIE VRAI avec count_tmp : ", count_tmp)
+            print("NON TERM : On continue le local, ON RENVOIE VRAI en lisant " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1)
         else:
             print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
@@ -490,7 +535,7 @@ def fonction_N71(token_list, count):  # N71 ::= '' / N71 ::= 273
 
 
 def fonction_N8(token_list, count):
-    # N8 ::= N15
+    # N8 ::= 286
     # N8 ::= N16
     # N8 ::= 280
     # N8 ::= 262
@@ -501,10 +546,10 @@ def fonction_N8(token_list, count):
     # N8 ::= 287 34 288 40 N8 41
     # N8 ::= EXPR1 EXPRA
 
-    # N8 ::= N15
+    # N8 ::= 286 car chiffre
     count_tmp = count
-    result = rec(['N15'], token_list, count_tmp, count, 0)
-    if result[0]:  # N15
+    result = rec([286], token_list, count_tmp, count, 0)
+    if result[0]:
         count = result[1]
         return True, count
 
@@ -900,7 +945,7 @@ def fonction_A102(token_list, count):  # A102 ::= '' / A102 ::= 44 A10
 
 
 def fonction_N9(token_list, count):
-    # N9 ::= N15 46 285 58 61 N8 59
+    # N9 ::= 286 46 285 58 61 N8 59
     # N9 ::= N16 46 285 58 61 N8 59
     # N9 ::= 280 46 285 58 61 N8 59
     # N9 ::= 262 46 285 58 61 N8 59
@@ -916,9 +961,9 @@ def fonction_N9(token_list, count):
     # N9 ::= 263 285 266 A14 N8 46 46 N8 268 A2 261 268 59
     # N9 ::= 283 N8 268 A2 261 268 59
 
-    # N9 ::= N15 46 285 58 61 N8 59
+    # N9 ::= 286 46 285 58 61 N8 59
     count_tmp = count
-    result = rec(['N15', 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([286, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
     if result[0]:
         count = result[1]
         return True, count
@@ -1026,7 +1071,7 @@ def fonction_N9(token_list, count):
 
 def fonction_N92(token_list, count):
     # N92 ::= 40 A10 41 N93
-    # N92 ::=  58 61 N8 59
+    # N92 ::= 58 61 N8 59
     # N92 ::= 59
 
     # N92 ::= 40 A10 41 N93
@@ -1195,6 +1240,15 @@ def fonction_N12(token_list, count):  # N12 ::= tchiffre
 
 
 def fonction_N13(token_list, count):  # N13 ::= tlettre
+    print(""
+          ""
+          ""
+          ""
+          ""
+          ""
+          ""
+          ""
+          "")
     # 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89,
     # 90, 91, 92, 93, 94, 95, 96
     # 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118,
@@ -1234,21 +1288,21 @@ def fonction_N13(token_list, count):  # N13 ::= tlettre
     return False, count
 
 
-def fonction_N15(token_list, count):  # N15 ::= N12 A15
+# def fonction_N15(token_list, count):  # N15 ::= N12 A15
     # N15 ::= N12 A15
-    count_tmp = count
-    result = rec(['N12', 'A15'], token_list, count_tmp, count, 0)
-    if result[0]:  # N12 A15
-        count = result[1]
-        return True, count
+    # count_tmp = count
+    # result = rec(['N12', 'A15'], token_list, count_tmp, count, 0)
+    # if result[0]:  # N12 A15
+        # count = result[1]
+        # return True, count
 
-    return False, count
+    # return False, count
 
 
-def fonction_A15(token_list, count):  # A15 ::= '' / A15 ::= N15
+def fonction_A15(token_list, count):  # A15 ::= '' / A15 ::= 286
     # A15 ::= N12 A15
     count_tmp = count
-    result = rec(['N15'], token_list, count_tmp, count, 0)
+    result = rec([286], token_list, count_tmp, count, 0)
     if result[0]:  # N12 A15
         count = result[1]
         return True, count
@@ -1295,7 +1349,7 @@ def fonction_A16(token_list, count):
 
     # A16 ::= N13
     count_tmp = count
-    result = rec(['N13'], token_list, count_tmp, count, 0)
+    result = rec([285], token_list, count_tmp, count, 0)
     if result[0]:  # N13
         count = result[1]
         return True, count
