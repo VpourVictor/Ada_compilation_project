@@ -74,12 +74,6 @@ def switch_fonction(name, token_list, count_tmp, noeud):
         case 'N111':
             print("---------------------------------------------------------------------> entrée N111")
             result = fonction_N111(token_list, count_tmp, noeud)
-        case 'N12':
-            print("---------------------------------------------------------------------> entrée N12")
-            result = fonction_N12(token_list, count_tmp, noeud)
-        case 'N13':
-            print("---------------------------------------------------------------------> entrée N13")
-            result = fonction_N13(token_list, count_tmp, noeud)
         case 'N16':
             print("---------------------------------------------------------------------> entrée N16")
             result = fonction_N16(token_list, count_tmp, noeud)
@@ -198,24 +192,29 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
             Node("" + str(count_tmp) + " " + str(list_att[local]), parent=parent)
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("INT : On termine le tableau local, dernier terme lu = " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
+                print("INT : On termine le tableau local, dernier terme lu = " + str(
+                    list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, parent
-            print("INT : On continue le local, ON RENVOIE VRAI en lisant " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
+            print(
+                "INT : On continue le local, ON RENVOIE VRAI en lisant " + str(list_att[local]) + " avec count_tmp : ",
+                count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
             print("INT : On a pas trouvé le bon caractère, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
             return False, count_tmp, parent
     else:
-        node = Node("" + str(count_tmp) + " "+ str(list_att[local]), parent=parent)
+        node = Node("" + str(count_tmp) + " " + str(list_att[local]), parent=parent)
         result = switch_fonction(list_att[local], token_list, count_tmp, node)
         if result[0]:
             count_tmp = result[1]
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("NON TERM : On termine le tableau local, dernier terme lu = " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
+                print("NON TERM : On termine le tableau local, dernier terme lu = " + str(
+                    list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, node
-            print("NON TERM : On continue le local, ON RENVOIE VRAI en lisant " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
-            return rec(list_att, token_list, count_tmp, count, local + 1, node)
+            print("NON TERM : On continue le local, ON RENVOIE VRAI en lisant " + str(
+                list_att[local]) + " avec count_tmp : ", count_tmp)
+            return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
             print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
             return False, count_tmp, parent
@@ -308,7 +307,8 @@ def fonction_N2(token_list, count, noeud):
 
     # N2 ::= 264 285 A7 277 N4 267 A1 258 A2 261 A3 59
     count_tmp = count
-    result = rec([264, 285, 'A7', 277, 'N4', 267, 'A1', 258, 'A2', 261, 'A3', 59], token_list, count_tmp, count, 0, noeud)
+    result = rec([264, 285, 'A7', 277, 'N4', 267, 'A1', 258, 'A2', 261, 'A3', 59], token_list, count_tmp, count, 0,
+                 noeud)
     if result[0]:
         count = result[1]
         return True, count
@@ -1056,7 +1056,8 @@ def fonction_N9(token_list, count, noeud):
 
     # N9 ::= 263 285 266 A14 N8 46 46 N8 268 A2 261 268 59
     count_tmp = count
-    result = rec([263, 285, 266, 'A14', 'N8', 46, 46, 'N8', 268, 'A2', 261, 268, 59], token_list, count_tmp, count, 0, noeud)
+    result = rec([263, 285, 266, 'A14', 'N8', 46, 46, 'N8', 268, 'A2', 261, 268, 59], token_list, count_tmp, count, 0,
+                 noeud)
     if result[0]:
         count = result[1]
         return True, count
@@ -1153,11 +1154,18 @@ def fonction_A13(token_list, count, noeud):  # A13 ::= '' / A13 ::= 259 A2
     return True, count
 
 
-def fonction_N11(token_list, count, noeud):  # N11 ::= 285 N111
+def fonction_N11(token_list, count, noeud):  # N11 ::= 285 N111 / N11 ::= 286 N111
     # N11 ::= 285 N111
     count_tmp = count
     result = rec([285, 'N111'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # 285 N111
+        count = result[1]
+        return True, count
+
+    # N11 ::= 286 N111
+    count_tmp = count
+    result = rec([286, 'N111'], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # 286 N111
         count = result[1]
         return True, count
 
@@ -1176,6 +1184,7 @@ def fonction_N111(token_list, count, noeud):  # N111 ::= '' / N111 ::= 46 285
     return True, count
 
 
+"""
 def fonction_N12(token_list, count, noeud):  # N12 ::= tchiffre
     # 48, 49, 50, 51, 52, 53, 54, 55, 56, 57
     count_tmp = count
@@ -1239,8 +1248,8 @@ def fonction_N12(token_list, count, noeud):  # N12 ::= tchiffre
         return True, count
 
     return False, count
-
-
+"""
+"""
 def fonction_N13(token_list, count, noeud):  # N13 ::= tlettre
     print(""
           ""
@@ -1287,18 +1296,19 @@ def fonction_N13(token_list, count, noeud):  # N13 ::= tlettre
 
     # todo le faire pour toutes les lettres
 
-    return False, count
+    return False, count 
+"""
 
 
 # def fonction_N15(token_list, count):  # N15 ::= N12 A15
-    # N15 ::= N12 A15
-    # count_tmp = count
-    # result = rec(['N12', 'A15'], token_list, count_tmp, count, 0)
-    # if result[0]:  # N12 A15
-        # count = result[1]
-        # return True, count
+# N15 ::= N12 A15
+# count_tmp = count
+# result = rec(['N12', 'A15'], token_list, count_tmp, count, 0)
+# if result[0]:  # N12 A15
+# count = result[1]
+# return True, count
 
-    # return False, count
+# return False, count
 
 
 def fonction_A15(token_list, count, noeud):  # A15 ::= '' / A15 ::= 286
@@ -1344,7 +1354,7 @@ def fonction_A16(token_list, count, noeud):
 
     # A16 ::= N12
     count_tmp = count
-    result = rec(['N12'], token_list, count_tmp, count, 0, noeud)
+    result = rec([286], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # N12
         count = result[1]
         return True, count

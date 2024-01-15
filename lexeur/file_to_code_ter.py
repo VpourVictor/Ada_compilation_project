@@ -80,9 +80,9 @@ def get_token(name_file):
     # lecture du fichier
     for ligne in file:
         actual_char = ''
-        l = len(ligne)
+        taille = len(ligne)
         i = 0
-        while i < l:
+        while i < taille:
             # print(char)
             # si le caractère est un espace, un retour à la ligne ou un tab ou une balise de commentaire,
             # on passe au caractère suivant,
@@ -94,14 +94,14 @@ def get_token(name_file):
                 i += 1
 
             # cas du commentaire : on ne lit plus la ligne
-            elif ligne[i] == '-' and i != l - 1 and ligne[i + 1] == '-':
+            elif ligne[i] == '-' and i != taille - 1 and ligne[i + 1] == '-':
                 if actual_char != '':
                     list_char.append(actual_char)
                     actual_char = ''
-                i = l
+                i = taille
 
             # si on est à la fin de la dernière ligne
-            elif i == l - 1:
+            elif i == taille - 1:
                 actual_char += ligne[i]
                 list_char.append(actual_char)
                 break
@@ -131,11 +131,11 @@ def get_token(name_file):
 
     for i in range(len(token_list)):
         if token_list[i] in [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86,
-          87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116,
-                                   117, 118, 119, 120, 121, 122]:
+                             87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111,
+                             112, 113, 114, 115, 116,
+                             117, 118, 119, 120, 121, 122]:
             token_list[i] = (285, chr(token_list[i]))
         if token_list[i] in [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]:
             token_list[i] = (286, chr(token_list[i]))
 
     return token_list
-

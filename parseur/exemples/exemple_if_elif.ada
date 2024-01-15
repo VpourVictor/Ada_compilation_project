@@ -7,10 +7,10 @@ procedure Example_If is
 begin
    -- Utilisation de l'instruction if sans print
    if X > 0 then
-      test; -- Aucune action pour le cas où le nombre est positif
+      test1; -- Aucune action pour le cas où le nombre est positif
    elsif X = 0 then
-      test; -- Aucune action pour le cas où le nombre est nul
+      test2; -- Aucune action pour le cas où le nombre est nul
    else
-      test; -- Aucune action pour le cas où le nombre est négatif
+      test3; -- Aucune action pour le cas où le nombre est négatif
    end if;
 end Example_If;
