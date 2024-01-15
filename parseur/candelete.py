@@ -7,6 +7,12 @@ child2 = Node("Child2", parent=root)
 child2 = Node("Child4", parent=root)
 child3 = Node("Child3", parent=child2)
 
+
+A = Node("A", parent=child3)
+B = Node("B", parent=A)
+C = Node("C", parent=B)
+D  = Node("D", parent=B)
+
 # Display the tree structure
 for pre, _, node in RenderTree(root):
     print(f"{pre}{node.name}")

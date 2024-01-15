@@ -104,79 +104,79 @@ def switch_fonction(name, token_list, count_tmp):
             result = fonction_N6(token_list, count_tmp)
         case 'N7':
             print("---------------------------------------------------------------------> entrée N7")
-            result = fonction_N7(token_list, count_tmp)
+            result = fonction_N7(token_list, count_tmp, noeud)
         case 'N71':
             print("---------------------------------------------------------------------> entrée N71")
-            result = fonction_N71(token_list, count_tmp)
+            result = fonction_N71(token_list, count_tmp, noeud)
         case 'N8':
             print("---------------------------------------------------------------------> entrée N8")
-            result = fonction_N8(token_list, count_tmp)
+            result = fonction_N8(token_list, count_tmp, noeud)
         case 'N9':
             print("---------------------------------------------------------------------> entrée N9")
-            result = fonction_N9(token_list, count_tmp)
+            result = fonction_N9(token_list, count_tmp, noeud)
         case 'N92':
             print("---------------------------------------------------------------------> entrée N92")
-            result = fonction_N92(token_list, count_tmp)
+            result = fonction_N92(token_list, count_tmp, noeud)
         case 'N93':
             print("---------------------------------------------------------------------> entrée N93")
-            result = fonction_N93(token_list, count_tmp)
+            result = fonction_N93(token_list, count_tmp, noeud)
         case 'N16':
             print("---------------------------------------------------------------------> entrée N16")
-            result = fonction_N16(token_list, count_tmp)
+            result = fonction_N16(token_list, count_tmp, noeud)
         case 'EXPRA':
             print("---------------------------------------------------------------------> entrée EXPRA")
-            result = fonction_EXPRA(token_list, count_tmp)
+            result = fonction_EXPRA(token_list, count_tmp, noeud)
         case 'EXPRA1':
             print("---------------------------------------------------------------------> entrée EXPRA1")
-            result = fonction_EXPRA1(token_list, count_tmp)
+            result = fonction_EXPRA1(token_list, count_tmp, noeud)
         case 'EXPR1':
             print("---------------------------------------------------------------------> entrée EXPR1")
-            result = fonction_EXRPR1(token_list, count_tmp)
+            result = fonction_EXRPR1(token_list, count_tmp, noeud)
         case 'EXPRB1':
             print("---------------------------------------------------------------------> entrée EXPRB1")
-            result = fonction_EXPRB1(token_list, count_tmp)
+            result = fonction_EXPRB1(token_list, count_tmp, noeud)
         case 'EXPRB':
             print("---------------------------------------------------------------------> entrée EXPRB")
-            result = fonction_EXPRB(token_list, count_tmp)
+            result = fonction_EXPRB(token_list, count_tmp, noeud)
         case 'EXPR2':
             print("---------------------------------------------------------------------> entrée EXPR2")
-            result = fonction_EXPR2(token_list, count_tmp)
+            result = fonction_EXPR2(token_list, count_tmp, noeud)
         case 'EXPR3':
             print("---------------------------------------------------------------------> entrée EXPR3")
-            result = fonction_EXPR3(token_list, count_tmp)
+            result = fonction_EXPR3(token_list, count_tmp, noeud)
         case 'EXPRC':
             print("---------------------------------------------------------------------> entrée EXPRC")
-            result = fonction_EXPRC(token_list, count_tmp)
+            result = fonction_EXPRC(token_list, count_tmp, noeud)
         case 'EXPR4':
             print("---------------------------------------------------------------------> entrée EXPR4")
-            result = fonction_EXPR4(token_list, count_tmp)
+            result = fonction_EXPR4(token_list, count_tmp, noeud)
         case 'EXPRE':
             print("---------------------------------------------------------------------> entrée EXPRE")
-            result = fonction_EXPRE(token_list, count_tmp)
+            result = fonction_EXPRE(token_list, count_tmp, noeud)
         case 'EXPRE1':
             print("---------------------------------------------------------------------> entrée EXPRE1")
-            result = fonction_EXPRE1(token_list, count_tmp)
+            result = fonction_EXPRE1(token_list, count_tmp, noeud)
         case 'EXPRE2':
             print("---------------------------------------------------------------------> entrée EXPRE2")
-            result = fonction_EXPRE2(token_list, count_tmp)
+            result = fonction_EXPRE2(token_list, count_tmp, noeud)
         case 'EXPR5':
             print("---------------------------------------------------------------------> entrée EXPR5")
-            result = fonction_EXPR5(token_list, count_tmp)
+            result = fonction_EXPR5(token_list, count_tmp, noeud)
         case 'EXPRF':
             print("---------------------------------------------------------------------> entrée EXPRF")
-            result = fonction_EXPRF(token_list, count_tmp)
+            result = fonction_EXPRF(token_list, count_tmp, noeud)
         case 'EXPR6':
             print("---------------------------------------------------------------------> entrée EXPR6")
-            result = fonction_EXPR6(token_list, count_tmp)
+            result = fonction_EXPR6(token_list, count_tmp, noeud)
         case 'EXPRG':
             print("---------------------------------------------------------------------> entrée EXPRG")
-            result = fonction_EXPRG(token_list, count_tmp)
+            result = fonction_EXPRG(token_list, count_tmp, noeud)
         case 'EXPR7':
             print("---------------------------------------------------------------------> entrée EXPR7")
-            result = fonction_EXPR7(token_list, count_tmp)
+            result = fonction_EXPR7(token_list, count_tmp, noeud)
         case 'EXPR8':
             print("---------------------------------------------------------------------> entrée EXPR8")
-            result = fonction_EXPR8(token_list, count_tmp)
+            result = fonction_EXPR8(token_list, count_tmp, noeud)
         case '.':
             print("---------------------------------------------------------------------> entrée .")
             result = False, count_tmp
@@ -917,9 +917,9 @@ def fonction_EXPR8(token_list, count):  # EXPR8 ::= N11
     return False, count
 
 
-def fonction_A10(token_list, count):  # A10 ::= N8 A102
+def fonction_A10(token_list, count, noeud):  # A10 ::= N8 A102
     count_tmp = count
-    result = rec(['N8', 'A102'], token_list, count_tmp, count, 0)
+    result = rec(['N8', 'A102'], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
@@ -927,12 +927,12 @@ def fonction_A10(token_list, count):  # A10 ::= N8 A102
     return False, count
 
 
-def fonction_A102(token_list, count):  # A102 ::= '' / A102 ::= 44 A10
+def fonction_A102(token_list, count, noeud):  # A102 ::= '' / A102 ::= 44 A10
     count_tmp = count
-    result = rec([44], token_list, count_tmp, count, 0)
+    result = rec([44], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # ,
         count_tmp = result[1]
-        result = rec(['A10'], token_list, count_tmp, count, 0)
+        result = rec(['A10'], token_list, count_tmp, count, 0, noeud)
         if result[0]:  # A10
             count = result[1]
             return True, count
@@ -944,7 +944,7 @@ def fonction_A102(token_list, count):  # A102 ::= '' / A102 ::= 44 A10
     return True, count
 
 
-def fonction_N9(token_list, count):
+def fonction_N9(token_list, count, noeud):
     # N9 ::= 286 46 285 58 61 N8 59
     # N9 ::= N16 46 285 58 61 N8 59
     # N9 ::= 280 46 285 58 61 N8 59
@@ -963,105 +963,105 @@ def fonction_N9(token_list, count):
 
     # N9 ::= 286 46 285 58 61 N8 59
     count_tmp = count
-    result = rec([286, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([286, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= N16 46 285 58 61 N8 59
     count_tmp = count
-    result = rec(['N16', 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec(['N16', 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 280 46 285 58 61 N8 59
     count_tmp = count
-    result = rec([280, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([280, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 262 46 285 58 61 N8 59
     count_tmp = count
-    result = rec([262, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([262, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 271 46 285 58 61 N8 59
     count_tmp = count
-    result = rec([271, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([271, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 40 N8 41 46 285 58 61 N8 59
     count_tmp = count
-    result = rec([40, 'N8', 41, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([40, 'N8', 41, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 269 285 46 285 58 61 N8 59
     count_tmp = count
-    result = rec([269, 285, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([269, 285, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 287 34 288 40 N8 41 46 285 58 61 N8 59
     count_tmp = count
-    result = rec([287, 34, 288, 40, 'N8', 41, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([287, 34, 288, 40, 'N8', 41, 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= EXPR1 EXPRA 46 285 58 61 N8 59
     count_tmp = count
-    result = rec(['EXPR1', 'EXPRA', 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec(['EXPR1', 'EXPRA', 46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 285 N92
     count_tmp = count
-    result = rec([285, 'N92'], token_list, count_tmp, count, 0)
+    result = rec([285, 'N92'], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 277 A11 59
     count_tmp = count
-    result = rec([277, 'A11', 59], token_list, count_tmp, count, 0)
+    result = rec([277, 'A11', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 258 A2 261 59
     count_tmp = count
-    result = rec([258, 'A2', 261, 59], token_list, count_tmp, count, 0)
+    result = rec([258, 'A2', 261, 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 265 N8 279 A2 A12 A13 261 265 59
     count_tmp = count
-    result = rec([265, 'N8', 279, 'A2', 'A12', 'A13', 261, 265, 59], token_list, count_tmp, count, 0)
+    result = rec([265, 'N8', 279, 'A2', 'A12', 'A13', 261, 265, 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 263 285 266 A14 N8 46 46 N8 268 A2 261 268 59
     count_tmp = count
-    result = rec([263, 285, 266, 'A14', 'N8', 46, 46, 'N8', 268, 'A2', 261, 268, 59], token_list, count_tmp, count, 0)
+    result = rec([263, 285, 266, 'A14', 'N8', 46, 46, 'N8', 268, 'A2', 261, 268, 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N9 ::= 283 N8 268 A2 261 268 59
     count_tmp = count
-    result = rec([283, 'N8', 268, 'A2', 261, 268, 59], token_list, count_tmp, count, 0)
+    result = rec([283, 'N8', 268, 'A2', 261, 268, 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
@@ -1069,28 +1069,28 @@ def fonction_N9(token_list, count):
     return False, count
 
 
-def fonction_N92(token_list, count):
+def fonction_N92(token_list, count, noeud):
     # N92 ::= 40 A10 41 N93
     # N92 ::= 58 61 N8 59
     # N92 ::= 59
 
     # N92 ::= 40 A10 41 N93
     count_tmp = count
-    result = rec([40, 'A10', 41, 'N93'], token_list, count_tmp, count, 0)
+    result = rec([40, 'A10', 41, 'N93'], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N92 ::=  58 61 N8 59
     count_tmp = count
-    result = rec([58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N92 ::= 59
     count_tmp = count
-    result = rec([59], token_list, count_tmp, count, 0)
+    result = rec([59], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # ;
         count = result[1]
         return True, count
@@ -1098,17 +1098,17 @@ def fonction_N92(token_list, count):
     return False, count
 
 
-def fonction_N93(token_list, count):  # N93 ::= 46 285 58 61 N8 59 / N93 ::= 59
+def fonction_N93(token_list, count, noeud):  # N93 ::= 46 285 58 61 N8 59 / N93 ::= 59
     # N93 ::= 46 285 58 61 N8 59
     count_tmp = count
-    result = rec([46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0)
+    result = rec([46, 285, 58, 61, 'N8', 59], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
 
     # N93 ::= 59
     count_tmp = count
-    result = rec([59], token_list, count_tmp, count, 0)
+    result = rec([59], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # ;
         count = result[1]
         return True, count
@@ -1116,10 +1116,10 @@ def fonction_N93(token_list, count):  # N93 ::= 46 285 58 61 N8 59 / N93 ::= 59
     return False, count
 
 
-def fonction_A11(token_list, count):  # A11 ::= '' / A11 ::= N8
+def fonction_A11(token_list, count, noeud):  # A11 ::= '' / A11 ::= N8
     # A11 ::= N8
     count_tmp = count
-    result = rec(['N8'], token_list, count_tmp, count, 0)
+    result = rec(['N8'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # N8
         count = result[1]
         return True, count
@@ -1127,10 +1127,10 @@ def fonction_A11(token_list, count):  # A11 ::= '' / A11 ::= N8
     return False, count
 
 
-def fonction_A12(token_list, count):  # A12 ::= '' / A12 ::= 260 N8 279 A2 A12
+def fonction_A12(token_list, count, noeud):  # A12 ::= '' / A12 ::= 260 N8 279 A2 A12
     # A12 ::= 260 N8 279 A2 A12
     count_tmp = count
-    result = rec([260, 'N8', 279, 'A2', 'A12'], token_list, count_tmp, count, 0)
+    result = rec([260, 'N8', 279, 'A2', 'A12'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # 260 N8 279 A2 A12
         count = result[1]
         return True, count
@@ -1139,10 +1139,10 @@ def fonction_A12(token_list, count):  # A12 ::= '' / A12 ::= 260 N8 279 A2 A12
     return True, count
 
 
-def fonction_A13(token_list, count):  # A13 ::= '' / A13 ::= 259 A2
+def fonction_A13(token_list, count, noeud):  # A13 ::= '' / A13 ::= 259 A2
     # A13 ::= 259 A2
     count_tmp = count
-    result = rec([259, 'A2'], token_list, count_tmp, count, 0)
+    result = rec([259, 'A2'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # 259 A2
         count = result[1]
         return True, count
@@ -1151,10 +1151,10 @@ def fonction_A13(token_list, count):  # A13 ::= '' / A13 ::= 259 A2
     return True, count
 
 
-def fonction_N11(token_list, count):  # N11 ::= 285 N111
+def fonction_N11(token_list, count, noeud):  # N11 ::= 285 N111
     # N11 ::= 285 N111
     count_tmp = count
-    result = rec([285, 'N111'], token_list, count_tmp, count, 0)
+    result = rec([285, 'N111'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # 285 N111
         count = result[1]
         return True, count
@@ -1162,10 +1162,10 @@ def fonction_N11(token_list, count):  # N11 ::= 285 N111
     return False, count
 
 
-def fonction_N111(token_list, count):  # N111 ::= '' / N111 ::= 46 285
+def fonction_N111(token_list, count, noeud):  # N111 ::= '' / N111 ::= 46 285
     # N111 ::= 46 285
     count_tmp = count
-    result = rec([46, 285], token_list, count_tmp, count, 0)
+    result = rec([46, 285], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # 46 285
         count = result[1]
         return True, count
@@ -1174,64 +1174,64 @@ def fonction_N111(token_list, count):  # N111 ::= '' / N111 ::= 46 285
     return True, count
 
 
-def fonction_N12(token_list, count):  # N12 ::= tchiffre
+def fonction_N12(token_list, count, noeud):  # N12 ::= tchiffre
     # 48, 49, 50, 51, 52, 53, 54, 55, 56, 57
     count_tmp = count
-    result = rec([48], token_list, count_tmp, count, 0)  # 0
+    result = rec([48], token_list, count_tmp, count, 0, noeud)  # 0
     if result[0]:  # 0
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([49], token_list, count_tmp, count, 0)  # 1
+    result = rec([49], token_list, count_tmp, count, 0, noeud)  # 1
     if result[0]:  # 1
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([50], token_list, count_tmp, count, 0)  # 2
+    result = rec([50], token_list, count_tmp, count, 0, noeud)  # 2
     if result[0]:  # 2
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([51], token_list, count_tmp, count, 0)  # 3
+    result = rec([51], token_list, count_tmp, count, 0, noeud)  # 3
     if result[0]:  # 3
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([52], token_list, count_tmp, count, 0)  # 4
+    result = rec([52], token_list, count_tmp, count, 0, noeud)  # 4
     if result[0]:  # 4
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([53], token_list, count_tmp, count, 0)  # 5
+    result = rec([53], token_list, count_tmp, count, 0, noeud)  # 5
     if result[0]:  # 5
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([54], token_list, count_tmp, count, 0)  # 6
+    result = rec([54], token_list, count_tmp, count, 0, noeud)  # 6
     if result[0]:  # 6
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([55], token_list, count_tmp, count, 0)  # 7
+    result = rec([55], token_list, count_tmp, count, 0, noeud)  # 7
     if result[0]:  # 7
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([56], token_list, count_tmp, count, 0)  # 8
+    result = rec([56], token_list, count_tmp, count, 0, noeud)  # 8
     if result[0]:  # 8
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([57], token_list, count_tmp, count, 0)  # 9
+    result = rec([57], token_list, count_tmp, count, 0, noeud)  # 9
     if result[0]:  # 9
         count = result[1]
         return True, count
@@ -1239,7 +1239,7 @@ def fonction_N12(token_list, count):  # N12 ::= tchiffre
     return False, count
 
 
-def fonction_N13(token_list, count):  # N13 ::= tlettre
+def fonction_N13(token_list, count, noeud):  # N13 ::= tlettre
     print(""
           ""
           ""
@@ -1254,31 +1254,31 @@ def fonction_N13(token_list, count):  # N13 ::= tlettre
     # 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118,
     # 119, 120, 121, 122
     count_tmp = count
-    result = rec([65], token_list, count_tmp, count, 0)  # A
+    result = rec([65], token_list, count_tmp, count, 0, noeud)  # A
     if result[0]:  # A
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([66], token_list, count_tmp, count, 0)  # B
+    result = rec([66], token_list, count_tmp, count, 0, noeud)  # B
     if result[0]:  # B
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([67], token_list, count_tmp, count, 0)  # C
+    result = rec([67], token_list, count_tmp, count, 0, noeud)  # C
     if result[0]:  # C
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([68], token_list, count_tmp, count, 0)  # D
+    result = rec([68], token_list, count_tmp, count, 0, noeud)  # D
     if result[0]:  # D
         count = result[1]
         return True, count
 
     count_tmp = count
-    result = rec([69], token_list, count_tmp, count, 0)  # E
+    result = rec([69], token_list, count_tmp, count, 0, noeud)  # E
     if result[0]:  # E
         count = result[1]
         return True, count
@@ -1299,10 +1299,10 @@ def fonction_N13(token_list, count):  # N13 ::= tlettre
     # return False, count
 
 
-def fonction_A15(token_list, count):  # A15 ::= '' / A15 ::= 286
+def fonction_A15(token_list, count, noeud):  # A15 ::= '' / A15 ::= 286
     # A15 ::= N12 A15
     count_tmp = count
-    result = rec([286], token_list, count_tmp, count, 0)
+    result = rec([286], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # N12 A15
         count = result[1]
         return True, count
@@ -1311,10 +1311,10 @@ def fonction_A15(token_list, count):  # A15 ::= '' / A15 ::= 286
     return True, count
 
 
-def fonction_N16(token_list, count):  # N16 ::= 34 A16 34
+def fonction_N16(token_list, count, noeud):  # N16 ::= 34 A16 34
     # N16 ::= 34 A16 34
     count_tmp = count
-    result = rec([34, 'A16', 34], token_list, count_tmp, count, 0)
+    result = rec([34, 'A16', 34], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # 34 A16 34
         count = result[1]
         return True, count
@@ -1322,7 +1322,7 @@ def fonction_N16(token_list, count):  # N16 ::= 34 A16 34
     return False, count
 
 
-def fonction_A16(token_list, count):
+def fonction_A16(token_list, count, noeud):
     # A16 ::= N12
     # A16 ::= N13
     # A16 ::= 44
@@ -1342,84 +1342,84 @@ def fonction_A16(token_list, count):
 
     # A16 ::= N12
     count_tmp = count
-    result = rec(['N12'], token_list, count_tmp, count, 0)
+    result = rec(['N12'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # N12
         count = result[1]
         return True, count
 
     # A16 ::= N13
     count_tmp = count
-    result = rec([285], token_list, count_tmp, count, 0)
+    result = rec([285], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # N13
         count = result[1]
         return True, count
 
     # A16 ::= 44
     count_tmp = count
-    result = rec([44], token_list, count_tmp, count, 0)
+    result = rec([44], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # ,
         count = result[1]
         return True, count
 
     # A16 ::= 58
     count_tmp = count
-    result = rec([58], token_list, count_tmp, count, 0)
+    result = rec([58], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # :
         count = result[1]
         return True, count
 
     # A16 ::= 40
     count_tmp = count
-    result = rec([40], token_list, count_tmp, count, 0)
+    result = rec([40], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # (
         count = result[1]
         return True, count
 
     # A16 ::= 41
     count_tmp = count
-    result = rec([41], token_list, count_tmp, count, 0)
+    result = rec([41], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # )
         count = result[1]
         return True, count
 
     # A16 ::= 45
     count_tmp = count
-    result = rec([45], token_list, count_tmp, count, 0)
+    result = rec([45], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # -
         count = result[1]
         return True, count
 
     # A16 ::= 61
     count_tmp = count
-    result = rec([61], token_list, count_tmp, count, 0)
+    result = rec([61], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # =
         count = result[1]
         return True, count
 
     # A16 ::= 60
     count_tmp = count
-    result = rec([60], token_list, count_tmp, count, 0)
+    result = rec([60], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # <
         count = result[1]
         return True, count
 
     # A16 ::= 62
     count_tmp = count
-    result = rec([62], token_list, count_tmp, count, 0)
+    result = rec([62], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # >
         count = result[1]
         return True, count
 
     # A16 ::= 43
     count_tmp = count
-    result = rec([43], token_list, count_tmp, count, 0)
+    result = rec([43], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # +
         count = result[1]
         return True, count
 
     # A16 ::= 42
     count_tmp = count
-    result = rec([42], token_list, count_tmp, count, 0)
+    result = rec([42], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # *
         count = result[1]
         return True, count
@@ -1427,28 +1427,28 @@ def fonction_A16(token_list, count):
     # A16 ::= 47
     # todo vérifier le caractère d'après 47
     count_tmp = count
-    result = rec([47], token_list, count_tmp, count, 0)
+    result = rec([47], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # /
         count = result[1]
         return True, count
 
     # A16 ::= 46
     count_tmp = count
-    result = rec([46], token_list, count_tmp, count, 0)
+    result = rec([46], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # .
         count = result[1]
         return True, count
 
     # A16 ::= 95
     count_tmp = count
-    result = rec([95], token_list, count_tmp, count, 0)
+    result = rec([95], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # _
         count = result[1]
         return True, count
 
     # A16 ::= 34
     count_tmp = count
-    result = rec([34], token_list, count_tmp, count, 0)
+    result = rec([34], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # "
         count = result[1]
         return True, count
@@ -1456,9 +1456,9 @@ def fonction_A16(token_list, count):
     return False, count
 
 
-def fonction_A14(token_list, count):  # A14 ::= '' / A14 ::= 278
+def fonction_A14(token_list, count, noeud):  # A14 ::= '' / A14 ::= 278
     count_tmp = count
-    result = rec([278], token_list, count_tmp, count, 0)
+    result = rec([278], token_list, count_tmp, count, 0, noeud)
     if result[0]:
         count = result[1]
         return True, count
