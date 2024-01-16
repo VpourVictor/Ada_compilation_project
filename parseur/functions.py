@@ -547,9 +547,7 @@ def fonction_N8(token_list, count, noeud):
     # N8 ::= 280
     # N8 ::= 262
     # N8 ::= 271
-    # N8 ::= 40 N8 EXPR1 EXPRA 41
-    # N8 ::= 40 EXPR1 EXPRA N8 41
-    # N8 ::= 40 N8 41
+    # N8 ::= 40 N800
     # N8 ::= 269 285
     # N8 ::= 285 40 A10 41
     # N8 ::= 287 34 288 40 N8 41
