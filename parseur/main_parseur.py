@@ -17,23 +17,51 @@ def delete_leef_eps(racine):
     for node in racine.leaves:
         if isDelete(node.name):
             node.parent = None
-def delete_leef_single(racine):
-    for node in racine.leaves:
-        if len(node.children)==1:
-            node.parent = None
 
 def delete_leef_epsX(racine):
     for i in range(0, racine.height):
         delete_leef_eps(racine)
-def delete_leef_singleX(racine):
-    for i in range(0, racine.height):
-        delete_leef_single(racine)
 
 def isDelete(name):
     nom = name.split(" ")
-    return nom[1][0].isupper() or nom[1] in [".", ",", "(", ")", ";", "is", "end", "begin", "with", "id(Ada)", "id(Text_IO)", "use"]
+    return nom[1][0].isupper() or nom[1] in [".", ",", "(", ")", ";", "is", "begin", "with", "id(Ada)", "id(Text_IO)", "use"]
 
 
+def supprimer_noeuds_un_seul_fils(node):
+    children = node.children
+    if len(children) == 1 :
+        #if len(children) == 1 and not children[0].is_leaf:
+        # Si le nœud a un seul fils qui n'est pas une feuille, le supprimer
+        parent = node.parent
+        node.parent = None  # Cela supprime le nœud de son parent
+        children[0].parent = parent
+        return True
+    return False
+
+def supprimer_Expr(node):
+    name = node.name.split(" ")
+    if(name[1][0] == "E"):
+        children = node.children
+        parent = node.parent
+        node.parent = None  # Cela supprime le nœud de son parent
+        for i in range(len(node.children)):
+            children[i].parent = parent
+        return True
+
+def delete_all_nodes(root):
+    for node in PreOrderIter(root):
+        if supprimer_noeuds_un_seul_fils(node):
+            delete_all_nodes(root)
+        if(node.name != "N1"):
+            supprimer_Expr(node)
+            rename(node)
+
+dico_N = {"N9" : "instruction" }
+
+def rename(node):
+    name = node.name.split(" ")
+    if(name[1] in dico_N.keys()):
+        node.name = name[0] + " " + dico_N[name[1]]
 
 if __name__ == '__main__':
     print("On va maintenant tester notre parseur")
@@ -41,13 +69,17 @@ if __name__ == '__main__':
           "associé")
     print("On va tester les exemples suivants :")
     print("On commence par un exemple simple : un programme qui se charge de faire une somme entre 2 entiers :")
-    token_list = file.get_token("exemples/exemple_calcul.ada")
+    token_list = file.get_token("exemples/exemple_if_elif.ada")
     print(token_list)
     root = Node('N1')
     print(parseur.functions.fonction_N1(token_list, root))
     delete_leef_epsX(root)
-    delete_leef_singleX(root)
-    generate_tree("tree_calcul2.png")
+    delete_all_nodes(root)
+    for node in PreOrderIter(root):
+        if(len(node.children) != 0):
+            for i in range(len(node.children)):
+                print(node.children[i].name)
+    generate_tree("tree_calcul3.png")
     result = search.findall(root, filter_=lambda node: node.name in ("33 285"))
     print(result)
 
