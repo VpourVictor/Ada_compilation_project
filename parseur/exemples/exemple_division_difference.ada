@@ -6,15 +6,15 @@ procedure DivisionExample is
 begin
    -- Utilisation de /=
    if A /= B then
-      Put_Line("A n'est pas égal à B.");
+      test_different;
    else
-      Put_Line("A est égal à B.");
+      test_equal;
    end if;
 
-   -- Utilisation de /
-   Put("La division de A par B donne : ");
-   Put(Float(A) / Float(B));  -- Conversion en Float pour obtenir une division réelle
-   New_Line;
+   X := 10;
+   Y := 20;
+
+   Div := X / Y;
 
    test; -- Placeholder for main logic
 end DivisionExample;

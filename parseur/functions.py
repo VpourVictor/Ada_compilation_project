@@ -196,7 +196,7 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
                     list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, parent
             print(
-                "INT : On continue le local, ON RENVOIE VRAI en lisant " + str(list_att[local]) + " avec count_tmp : ",
+                "INT : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(list_att[local]) + " avec count_tmp : ",
                 count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
@@ -212,7 +212,7 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
                 print("NON TERM : On termine le tableau local, dernier terme lu = " + str(
                     list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, node
-            print("NON TERM : On continue le local, ON RENVOIE VRAI en lisant " + str(
+            print("NON TERM : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(
                 list_att[local]) + " avec count_tmp : ", count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
@@ -542,6 +542,8 @@ def fonction_N8(token_list, count, noeud):
     # N8 ::= 280
     # N8 ::= 262
     # N8 ::= 271
+    # N8 ::= 40 N8 EXPR1 EXPRA 41
+    # N8 ::= 40 EXPR1 EXPRA N8 41
     # N8 ::= 40 N8 41
     # N8 ::= 269 285
     # N8 ::= 285 40 A10 41
@@ -580,6 +582,20 @@ def fonction_N8(token_list, count, noeud):
     count_tmp = count
     result = rec([271], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # false
+        count = result[1]
+        return True, count
+
+    # N8 ::= 40 N8 EXPR1 EXPRA 41
+    count_tmp = count
+    result = rec([40, 'N8', 'EXPR1', 'EXPRA', 41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # ( N8 )
+        count = result[1]
+        return True, count
+
+    # N8 ::= 40 EXPR1 EXPRA N8 41
+    count_tmp = count
+    result = rec([40, 'EXPR1', 'EXPRA', 'N8', 41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # ( EXPR1 EXPRA N8 )
         count = result[1]
         return True, count
 
@@ -733,7 +749,6 @@ def fonction_EXPRC(token_list, count, noeud):
         return True, count
 
     # EXPRC ::= 47 61 EXPR4 EXPRC
-    # todo vérifier le caractère après 47
     count_tmp = count
     result = rec([47, 61, 'EXPR4', 'EXPRC'], token_list, count_tmp, count, 0, noeud)
     if result[0]:
@@ -870,7 +885,6 @@ def fonction_EXPRG(token_list, count, noeud):
         return True, count
 
     # EXPRG ::= 47 EXPR7 EXPRG
-    # todo vérifier le caractère après 47
     count_tmp = count
     result = rec([47, 'EXPR7', 'EXPRG'], token_list, count_tmp, count, 0, noeud)
     if result[0]:
@@ -1154,7 +1168,7 @@ def fonction_A13(token_list, count, noeud):  # A13 ::= '' / A13 ::= 259 A2
     return True, count
 
 
-def fonction_N11(token_list, count, noeud):  # N11 ::= 285 N111 / N11 ::= 286 N111
+def fonction_N11(token_list, count, noeud):  # N11 ::= 285 N111 / N11 ::= 286 N111 / N11 ::= ''
     # N11 ::= 285 N111
     count_tmp = count
     result = rec([285, 'N111'], token_list, count_tmp, count, 0, noeud)
@@ -1169,7 +1183,7 @@ def fonction_N11(token_list, count, noeud):  # N11 ::= 285 N111 / N11 ::= 286 N1
         count = result[1]
         return True, count
 
-    return False, count
+    return True, count
 
 
 def fonction_N111(token_list, count, noeud):  # N111 ::= '' / N111 ::= 46 285
@@ -1437,7 +1451,6 @@ def fonction_A16(token_list, count, noeud):
         return True, count
 
     # A16 ::= 47
-    # todo vérifier le caractère d'après 47
     count_tmp = count
     result = rec([47], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # /
