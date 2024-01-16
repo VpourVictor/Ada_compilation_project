@@ -21,5 +21,6 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(term.get('id'), 285)
         print("Les exemples montrent bien que l'association dans le dictionnaire est correcte")
 
+
 if __name__ == '__main__':
     unittest.main()

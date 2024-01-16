@@ -2,6 +2,9 @@ from anytree import Node
 
 from parseur.reader_carac import reader_carac
 
+import lexeur.dictionnaire_ter as dico
+
+dict = dico.term2
 
 def switch_fonction(name, token_list, count_tmp, noeud):
     result = None
@@ -74,12 +77,6 @@ def switch_fonction(name, token_list, count_tmp, noeud):
         case 'N111':
             print("---------------------------------------------------------------------> entrée N111")
             result = fonction_N111(token_list, count_tmp, noeud)
-        case 'N12':
-            print("---------------------------------------------------------------------> entrée N12")
-            result = fonction_N12(token_list, count_tmp, noeud)
-        case 'N13':
-            print("---------------------------------------------------------------------> entrée N13")
-            result = fonction_N13(token_list, count_tmp, noeud)
         case 'N16':
             print("---------------------------------------------------------------------> entrée N16")
             result = fonction_N16(token_list, count_tmp, noeud)
@@ -192,30 +189,42 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
 
     print("On commence le rec local avec la lecture de : " + str(list_att[local]) + " liste locale : " + str(list_att))
     if type(list_att[local]) == int:
+
         result = reader_carac(list_att[local], token_list, count_tmp)
         if result[0]:
             count_tmp = result[1]
-            Node("" + str(count_tmp) + " " + str(list_att[local]), parent=parent)
+            print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ", dict[list_att[local]],parent)
+            if not ((list_att[local] == 285) or (list_att[local] == 286)):
+                Node("" + str(count_tmp) + " " + dict[list_att[local]], parent=parent)
+            elif (list_att[local] == 285):
+                Node("" + str(count_tmp) + " " + "id(" + token_list[count_tmp - 1][1] + ")", parent=parent)
+            else:
+                Node("" + str(count_tmp) + " " + "num(" + token_list[count_tmp - 1][1] + ")", parent=parent)
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("INT : On termine le tableau local, dernier terme lu = " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
+                print("INT : On termine le tableau local, dernier terme lu = " + str(
+                    list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, parent
-            print("INT : On continue le local, ON RENVOIE VRAI en lisant " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
+            print(
+                "INT : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(list_att[local]) + " avec count_tmp : ",
+                count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
             print("INT : On a pas trouvé le bon caractère, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
             return False, count_tmp, parent
     else:
-        node = Node("" + str(count_tmp) + " "+ str(list_att[local]), parent=parent)
+        node = Node("" + str(count_tmp) + " " + str(list_att[local]), parent=parent)
         result = switch_fonction(list_att[local], token_list, count_tmp, node)
         if result[0]:
             count_tmp = result[1]
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("NON TERM : On termine le tableau local, dernier terme lu = " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
+                print("NON TERM : On termine le tableau local, dernier terme lu = " + str(
+                    list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, node
-            print("NON TERM : On continue le local, ON RENVOIE VRAI en lisant " + str(list_att[local]) + " avec count_tmp : ", count_tmp)
-            return rec(list_att, token_list, count_tmp, count, local + 1, node)
+            print("NON TERM : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(
+                list_att[local]) + " avec count_tmp : ", count_tmp)
+            return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
             print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
             return False, count_tmp, parent
@@ -308,7 +317,8 @@ def fonction_N2(token_list, count, noeud):
 
     # N2 ::= 264 285 A7 277 N4 267 A1 258 A2 261 A3 59
     count_tmp = count
-    result = rec([264, 285, 'A7', 277, 'N4', 267, 'A1', 258, 'A2', 261, 'A3', 59], token_list, count_tmp, count, 0, noeud)
+    result = rec([264, 285, 'A7', 277, 'N4', 267, 'A1', 258, 'A2', 261, 'A3', 59], token_list, count_tmp, count, 0,
+                 noeud)
     if result[0]:
         count = result[1]
         return True, count
@@ -542,6 +552,8 @@ def fonction_N8(token_list, count, noeud):
     # N8 ::= 280
     # N8 ::= 262
     # N8 ::= 271
+    # N8 ::= 40 N8 EXPR1 EXPRA 41
+    # N8 ::= 40 EXPR1 EXPRA N8 41
     # N8 ::= 40 N8 41
     # N8 ::= 269 285
     # N8 ::= 285 40 A10 41
@@ -580,6 +592,20 @@ def fonction_N8(token_list, count, noeud):
     count_tmp = count
     result = rec([271], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # false
+        count = result[1]
+        return True, count
+
+    # N8 ::= 40 N8 EXPR1 EXPRA 41
+    count_tmp = count
+    result = rec([40, 'N8', 'EXPR1', 'EXPRA', 41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # ( N8 )
+        count = result[1]
+        return True, count
+
+    # N8 ::= 40 EXPR1 EXPRA N8 41
+    count_tmp = count
+    result = rec([40, 'EXPR1', 'EXPRA', 'N8', 41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # ( EXPR1 EXPRA N8 )
         count = result[1]
         return True, count
 
@@ -733,7 +759,6 @@ def fonction_EXPRC(token_list, count, noeud):
         return True, count
 
     # EXPRC ::= 47 61 EXPR4 EXPRC
-    # todo vérifier le caractère après 47
     count_tmp = count
     result = rec([47, 61, 'EXPR4', 'EXPRC'], token_list, count_tmp, count, 0, noeud)
     if result[0]:
@@ -870,7 +895,6 @@ def fonction_EXPRG(token_list, count, noeud):
         return True, count
 
     # EXPRG ::= 47 EXPR7 EXPRG
-    # todo vérifier le caractère après 47
     count_tmp = count
     result = rec([47, 'EXPR7', 'EXPRG'], token_list, count_tmp, count, 0, noeud)
     if result[0]:
@@ -1056,7 +1080,8 @@ def fonction_N9(token_list, count, noeud):
 
     # N9 ::= 263 285 266 A14 N8 46 46 N8 268 A2 261 268 59
     count_tmp = count
-    result = rec([263, 285, 266, 'A14', 'N8', 46, 46, 'N8', 268, 'A2', 261, 268, 59], token_list, count_tmp, count, 0, noeud)
+    result = rec([263, 285, 266, 'A14', 'N8', 46, 46, 'N8', 268, 'A2', 261, 268, 59], token_list, count_tmp, count, 0,
+                 noeud)
     if result[0]:
         count = result[1]
         return True, count
@@ -1153,7 +1178,7 @@ def fonction_A13(token_list, count, noeud):  # A13 ::= '' / A13 ::= 259 A2
     return True, count
 
 
-def fonction_N11(token_list, count, noeud):  # N11 ::= 285 N111
+def fonction_N11(token_list, count, noeud):  # N11 ::= 285 N111 / N11 ::= 286 N111 / N11 ::= ''
     # N11 ::= 285 N111
     count_tmp = count
     result = rec([285, 'N111'], token_list, count_tmp, count, 0, noeud)
@@ -1161,7 +1186,14 @@ def fonction_N11(token_list, count, noeud):  # N11 ::= 285 N111
         count = result[1]
         return True, count
 
-    return False, count
+    # N11 ::= 286 N111
+    count_tmp = count
+    result = rec([286, 'N111'], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # 286 N111
+        count = result[1]
+        return True, count
+
+    return True, count
 
 
 def fonction_N111(token_list, count, noeud):  # N111 ::= '' / N111 ::= 46 285
@@ -1176,6 +1208,7 @@ def fonction_N111(token_list, count, noeud):  # N111 ::= '' / N111 ::= 46 285
     return True, count
 
 
+"""
 def fonction_N12(token_list, count, noeud):  # N12 ::= tchiffre
     # 48, 49, 50, 51, 52, 53, 54, 55, 56, 57
     count_tmp = count
@@ -1239,8 +1272,8 @@ def fonction_N12(token_list, count, noeud):  # N12 ::= tchiffre
         return True, count
 
     return False, count
-
-
+"""
+"""
 def fonction_N13(token_list, count, noeud):  # N13 ::= tlettre
     print(""
           ""
@@ -1287,18 +1320,19 @@ def fonction_N13(token_list, count, noeud):  # N13 ::= tlettre
 
     # todo le faire pour toutes les lettres
 
-    return False, count
+    return False, count 
+"""
 
 
 # def fonction_N15(token_list, count):  # N15 ::= N12 A15
-    # N15 ::= N12 A15
-    # count_tmp = count
-    # result = rec(['N12', 'A15'], token_list, count_tmp, count, 0)
-    # if result[0]:  # N12 A15
-        # count = result[1]
-        # return True, count
+# N15 ::= N12 A15
+# count_tmp = count
+# result = rec(['N12', 'A15'], token_list, count_tmp, count, 0)
+# if result[0]:  # N12 A15
+# count = result[1]
+# return True, count
 
-    # return False, count
+# return False, count
 
 
 def fonction_A15(token_list, count, noeud):  # A15 ::= '' / A15 ::= 286
@@ -1344,7 +1378,7 @@ def fonction_A16(token_list, count, noeud):
 
     # A16 ::= N12
     count_tmp = count
-    result = rec(['N12'], token_list, count_tmp, count, 0, noeud)
+    result = rec([286], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # N12
         count = result[1]
         return True, count
@@ -1427,7 +1461,6 @@ def fonction_A16(token_list, count, noeud):
         return True, count
 
     # A16 ::= 47
-    # todo vérifier le caractère d'après 47
     count_tmp = count
     result = rec([47], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # /

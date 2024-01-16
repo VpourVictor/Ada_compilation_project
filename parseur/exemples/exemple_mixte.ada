@@ -8,13 +8,13 @@ procedure MyFunction is
       Field2 : Character;
    end record;
 
-   procedure MyProcedure(Parameter1: in Integer; Parameter2: out Boolean) is
+   procedure MyProcedure(Parameter1: in Integer; Parameter2: in out Boolean) is
    begin
       Parameter2 := Parameter1 > 0;
    end MyProcedure;
 
    function MyFunction2(Parameter: Integer) return MyType is
-      Result : MyType := new Integer'(Parameter);
+      Result : MyType := new Integer;
    begin
       return Result;
    end MyFunction2;
@@ -29,5 +29,5 @@ procedure MyFunction is
 begin
    -- Main program logic goes here
 
-   null; -- Placeholder for main logic
+   Field1 := null; -- Placeholder for main logic
 end MyFunction;
