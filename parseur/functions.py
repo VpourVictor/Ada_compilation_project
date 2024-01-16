@@ -2,7 +2,6 @@ from anytree import Node
 
 from parseur.reader_carac import reader_carac
 
-
 def switch_fonction(name, token_list, count_tmp, noeud):
     result = None
     match name:
@@ -107,6 +106,12 @@ def switch_fonction(name, token_list, count_tmp, noeud):
         case 'N8':
             print("---------------------------------------------------------------------> entrée N8")
             result = fonction_N8(token_list, count_tmp, noeud)
+        case 'N800':
+            print("---------------------------------------------------------------------> entrée N800")
+            result = fonction_N800(token_list, count_tmp, noeud)
+        case 'N801':
+            print("---------------------------------------------------------------------> entrée N801")
+            result = fonction_N801(token_list, count_tmp, noeud)
         case 'N9':
             print("---------------------------------------------------------------------> entrée N9")
             result = fonction_N9(token_list, count_tmp, noeud)
@@ -585,23 +590,9 @@ def fonction_N8(token_list, count, noeud):
         count = result[1]
         return True, count
 
-    # N8 ::= 40 N8 EXPR1 EXPRA 41
+    # N8 ::= 40 N800
     count_tmp = count
-    result = rec([40, 'N8', 'EXPR1', 'EXPRA', 41], token_list, count_tmp, count, 0, noeud)
-    if result[0]:  # ( N8 )
-        count = result[1]
-        return True, count
-
-    # N8 ::= 40 EXPR1 EXPRA N8 41
-    count_tmp = count
-    result = rec([40, 'EXPR1', 'EXPRA', 'N8', 41], token_list, count_tmp, count, 0, noeud)
-    if result[0]:  # ( EXPR1 EXPRA N8 )
-        count = result[1]
-        return True, count
-
-    # N8 ::= 40 N8 41
-    count_tmp = count
-    result = rec([40, 'N8', 41], token_list, count_tmp, count, 0, noeud)
+    result = rec([40, 'N800'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # ( N8 )
         count = result[1]
         return True, count
@@ -631,6 +622,42 @@ def fonction_N8(token_list, count, noeud):
     count_tmp = count
     result = rec(['EXPR1', 'EXPRA'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # ' N8 '
+        count = result[1]
+        return True, count
+
+    return False, count
+
+
+def fonction_N800(token_list, count, noeud):  # N800 ::= EXPR1 EXPRA N8 41 / N800 ::= N8 N801
+    # N800 ::= EXPR1 EXPRA N8 41
+    count_tmp = count
+    result = rec(['EXPR1', 'EXPRA', 'N8', 41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # ( EXPR1 EXPRA N8 )
+        count = result[1]
+        return True, count
+
+    # N800 ::= N8 N801
+    count_tmp = count
+    result = rec(['N8', 'N801'], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # ( N8 N801 )
+        count = result[1]
+        return True, count
+
+    return False, count
+
+
+def fonction_N801(token_list, count, noeud):  # N801 ::= EXPR1 EXPRA 41 / N801 ::= 41
+    # N801 ::= EXPR1 EXPRA 41
+    count_tmp = count
+    result = rec(['EXPR1', 'EXPRA', 41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:
+        count = result[1]
+        return True, count
+
+    # N801 ::= 41
+    count_tmp = count
+    result = rec([41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  #
         count = result[1]
         return True, count
 
