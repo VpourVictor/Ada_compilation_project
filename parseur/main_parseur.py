@@ -1,9 +1,6 @@
-from anytree import Node, RenderTree
-from anytree.exporter import DotExporter
+import filecmp
 
-import lexeur.file_to_code_ter as file
-import parseur.functions
-import lexeur.dictionnaire_ter as dictionnaire_ter
+import 
 
 
 def generate_tree(name_file):
@@ -42,7 +39,7 @@ if __name__ == '__main__':
 
     # todo ne marche pas
     print("On va maintenant tester si notre parseur fonctionne avec un programme qui contient des if et des while :")
-    token_list = file.get_token("exemples/exemple_if_while.ada")
+    token_list = filecmp.get_token("exemples/exemple_if_while.ada")
     print(token_list)
     root = Node('N1')
     print(parseur.functions.fonction_N1(token_list, root))
