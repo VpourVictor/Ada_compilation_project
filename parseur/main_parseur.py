@@ -43,6 +43,41 @@ def supprimer_noeuds_un_seul_fils(node):
         return True
     return False
 
+def remove_duplicate_parent_links(node):
+    children = node.children
+    l = len(children)
+
+    if l == 2 and children[0].name == children[1].name :
+        if children[0].is_leaf :
+            children[0].parent = None
+        else :
+            children[1].parent = None
+        return True
+
+    elif l > 1:
+
+        L = []
+        for i in range(0, l):
+            L.append(children[i].name)
+        j = 0
+        nb_of_del = 0
+        while j != l - 1 :
+            if children[j+nb_of_del].name in (L[:j] + L[j + 1:]):
+                nb_of_del += 1
+                children[j+nb_of_del].parent = None
+                l -= 1
+                del L[j]
+            j += 1
+        if nb_of_del != 0 :
+            return True
+
+    return False
+
+def delete_all_duplicates(root):
+    for node in PreOrderIter(root):
+        if remove_duplicate_parent_links(node):
+            delete_all_duplicates(root)
+
 def delete_all_nodes(root):
     for node in PreOrderIter(root):
         if supprimer_noeuds_un_seul_fils(node):
@@ -71,6 +106,7 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     delete_leef_epsX(root)
     delete_all_nodes(root)
+    delete_all_duplicates(root)
     generate_tree("tree_double_procedure.png")
     #
     # print("On va maintenant tester un exemple qui contient blocs d'instructions if elif et else :")
