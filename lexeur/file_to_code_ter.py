@@ -1,5 +1,5 @@
 # import du dictionnaire
-import dictionnaire_ter as dictionnaire_ter
+import lexeur.dictionnaire_ter as dictionnaire_ter
 
 
 # definition d'une fonction qui gère un string de char découpé dans la partie 1 de get_token
