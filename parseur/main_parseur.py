@@ -32,6 +32,7 @@ def isDelete(name):
     nom = name.split(" ")
     return nom[1][0].isalpha()
 
+
 def supprimer_noeuds_un_seul_fils(node):
     children = node.children
     if len(children) == 1 :
@@ -43,88 +44,110 @@ def supprimer_noeuds_un_seul_fils(node):
         return True
     return False
 
+
 def delete_all_nodes(root):
     for node in PreOrderIter(root):
         if supprimer_noeuds_un_seul_fils(node):
             delete_all_nodes(root)
 
 
+def generate_final_AST(root):
+    delete_leef_epsX(root)
+    delete_all_nodes(root)
+    return root
+
+
 if __name__ == '__main__':
-    print("On va maintenant tester notre parseur")
-    print("Pour chaque test, on va afficher la liste de token renvoyé par le lexeur, puis générer l'arbre syntaxique "
-          "associé")
-    print("On va tester les exemples suivants :")
-    print("On commence par un exemple simple : un programme qui se charge de faire une somme entre 2 entiers :")
-    token_list = file.get_token("exemples/exemple_calcul.ada")
+    # print("On va maintenant tester notre parseur")
+    # print("Pour chaque test, on va afficher la liste de token renvoyé par le lexeur, puis générer l'arbre syntaxique "
+    #       "associé")
+    # print("On va tester les exemples suivants :")
+    # print("On commence par un exemple simple : un programme qui se charge de faire une somme entre 2 entiers :")
+    # token_list = file.get_token("exemples/exemple_calcul.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("tree_calcul.png")
+    #
+    # print("On va maintenant tester un exemple qui contient des procédures imbriquées :")
+    # token_list = file.get_token("exemples/exemple_double_procedure.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("tree_double_procedure.png")
+    #
+    # print("On va maintenant tester un exemple qui contient blocs d'instructions if elif et else :")
+    # token_list = file.get_token("exemples/exemple_if_elif.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("tree_if_elif.png")
+    #
+    # print("On va maintenant tester si notre parseur fonctionne avec un programme qui contient des if et des while :")
+    # token_list = file.get_token("exemples/exemple_if_while.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("tree_if_while.png")
+    #
+    # print("Le test qui suit vise à montrer que l'on traite bien le cas où notre grammaire n'est pas LL1 (/=, /) :")
+    # token_list = file.get_token("exemples/exemple_division_difference.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("tree_division_difference.png")
+    #
+    # print("On va maintenant tester un exemple qui tourne autour des expressions arithmétiques :")
+    # token_list = file.get_token("exemples/exemple_expression_arithmetique.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("tree_expression_arithmetique.png")
+    #
+    # print("On va maintenant tester un exemple qui contient des fonctions imbriquées :")
+    # token_list = file.get_token("exemples/exemple_fonctions_imb.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("tree_fonctions_imb.png")
+    #
+    # print("On va maintenant tester un exemple qui mélange un peut tout (fonctions, procédures) :")
+    # token_list = file.get_token("exemples/exemple_mixte.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("tree_mixte.png")
+    #
+    # print("Le dernier test est effectué sur le code fournit dans le sujet :")
+    # token_list = file.get_token("exemples/exemple.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("tree_exemple.png")
+    #
+    print("On va maintenant tester un exemple qui contient des erreurs :")
+    token_list = file.get_token("exemples/exemple_erreur_caract.ada")
     print(token_list)
     root = Node('N1')
     print(parseur.functions.fonction_N1(token_list, root))
-    delete_leef_epsX(root)
-    generate_tree("tree_calcul.png")
+    generate_final_AST(root)
+    generate_tree("exemple_erreur_caract.png")
 
-    print("On va maintenant tester un exemple qui contient des procédures imbriquées :")
-    token_list = file.get_token("exemples/exemple_double_procedure.ada")
+    token_list = file.get_token("exemples/exemple_erreur_ortho.ada")
     print(token_list)
     root = Node('N1')
     print(parseur.functions.fonction_N1(token_list, root))
-    delete_leef_epsX(root)
-    generate_tree("tree_double_procedure.png")
-
-    print("On va maintenant tester un exemple qui contient blocs d'instructions if elif et else :")
-    token_list = file.get_token("exemples/exemple_if_elif.ada")
-    print(token_list)
-    root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
-    delete_leef_epsX(root)
-    generate_tree("tree_if_elif.png")
-
-    print("On va maintenant tester si notre parseur fonctionne avec un programme qui contient des if et des while :")
-    token_list = file.get_token("exemples/exemple_if_while.ada")
-    print(token_list)
-    root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
-    delete_leef_epsX(root)
-    generate_tree("tree_if_while.png")
-
-    print("Le test qui suit vise à montrer que l'on traite bien le cas où notre grammaire n'est pas LL1 (/=, /) :")
-    token_list = file.get_token("exemples/exemple_division_difference.ada")
-    print(token_list)
-    root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
-    delete_leef_epsX(root)
-    generate_tree("tree_division_difference.png")
-
-    print("On va maintenant tester un exemple qui tourne autour des expressions arithmétiques :")
-    token_list = file.get_token("exemples/exemple_expression_arithmetique.ada")
-    print(token_list)
-    root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
-    delete_leef_epsX(root)
-    generate_tree("tree_expression_arithmetique.png")
-
-    print("On va maintenant tester un exemple qui contient des fonctions imbriquées :")
-    token_list = file.get_token("exemples/exemple_fonctions_imb.ada")
-    print(token_list)
-    root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
-    delete_leef_epsX(root)
-    generate_tree("tree_fonctions_imb.png")
-
-    print("On va maintenant tester un exemple qui mélange un peut tout (fonctions, procédures) :")
-    token_list = file.get_token("exemples/exemple_mixte.ada")
-    print(token_list)
-    root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
-    delete_leef_epsX(root)
-    generate_tree("tree_mixte.png")
-
-    print("Le dernier test est effectué sur le code fournit dans le sujet :")
-    token_list = file.get_token("exemples/exemple.ada")
-    print(token_list)
-    root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
-    delete_leef_epsX(root)
-    generate_tree("tree_exemple.png")
+    generate_final_AST(root)
+    generate_tree("exemple_erreur_ortho.png")
 
     # Display the tree structure
     # for pre, _, node in RenderTree(root):

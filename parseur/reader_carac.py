@@ -21,8 +21,9 @@ def reader_carac(val, token_list, count_tmp):
         count_tmp += 1
         return True, count_tmp
     else:
+        print("on passe dans compare")
         # sinon, on renvoie une erreur sans avoir modifié le compteur
-        return False, count_tmp
+        return compare(token_list[count_tmp], val), count_tmp
             
 
 

@@ -189,7 +189,7 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
     if count_tmp == len(token_list) - 1:
         return True, count_tmp
 
-    print("On commence le rec local avec la lecture de : " + str(list_att[local]) + " liste locale : " + str(list_att))
+    # print("On commence le rec local avec la lecture de : " + str(list_att[local]) + " liste locale : " + str(list_att))
     if type(list_att[local]) == int:
         result = reader_carac(list_att[local], token_list, count_tmp)
         if result[0]:
@@ -197,15 +197,15 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
             Node("" + str(count_tmp) + " " + str(list_att[local]), parent=parent)
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("INT : On termine le tableau local, dernier terme lu = " + str(
-                    list_att[local]) + " avec count_tmp : ", count_tmp)
+                # print("INT : On termine le tableau local, dernier terme lu = " + str(
+                #     list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, parent
-            print(
-                "INT : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(list_att[local]) + " avec count_tmp : ",
-                count_tmp)
+            # print(
+            #     "INT : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(list_att[local]) + " avec count_tmp : ",
+            #     count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
-            print("INT : On a pas trouvé le bon caractère, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
+            # print("INT : On a pas trouvé le bon caractère, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
             return False, count_tmp, parent
     else:
         node = Node("" + str(count_tmp) + " " + str(list_att[local]), parent=parent)
@@ -214,14 +214,14 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
             count_tmp = result[1]
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("NON TERM : On termine le tableau local, dernier terme lu = " + str(
-                    list_att[local]) + " avec count_tmp : ", count_tmp)
+                # print("NON TERM : On termine le tableau local, dernier terme lu = " + str(
+                #     list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, node
-            print("NON TERM : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(
-                list_att[local]) + " avec count_tmp : ", count_tmp)
+            # print("NON TERM : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(
+            #     list_att[local]) + " avec count_tmp : ", count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
-            print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
+            # print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
             return False, count_tmp, parent
 
 
