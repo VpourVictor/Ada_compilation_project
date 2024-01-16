@@ -23,3 +23,6 @@ def reader_carac(val, token_list, count_tmp):
     else:
         # sinon, on renvoie une erreur sans avoir modifié le compteur
         return False, count_tmp
+            
+
+

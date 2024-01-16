@@ -4,6 +4,10 @@ from anytree.exporter import DotExporter
 import lexeur.file_to_code_ter as file
 import parseur.functions
 
+# def delete_EXPR1(root):
+#     for pre, _, node in RenderTree(root):
+#         if "N9" in node.name :
+
 
 def generate_tree(name_file):
     try:
@@ -27,6 +31,22 @@ def delete_leef_epsX(racine):
 def isDelete(name):
     nom = name.split(" ")
     return nom[1][0].isalpha()
+
+def supprimer_noeuds_un_seul_fils(node):
+    children = node.children
+    if len(children) == 1 :
+        #if len(children) == 1 and not children[0].is_leaf:
+        # Si le nœud a un seul fils qui n'est pas une feuille, le supprimer
+        parent = node.parent
+        node.parent = None  # Cela supprime le nœud de son parent
+        children[0].parent = parent
+        return True
+    return False
+
+def delete_all_nodes(root):
+    for node in PreOrderIter(root):
+        if supprimer_noeuds_un_seul_fils(node):
+            delete_all_nodes(root)
 
 
 if __name__ == '__main__':
