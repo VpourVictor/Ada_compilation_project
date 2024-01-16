@@ -5,14 +5,14 @@ procedure ExampleCode is
 
    procedure MyProc(X: Integer; Y: in out Boolean) is
    -- il manque le e dans begin
-   bgin
+   bgein
       Y := X > 0;
    end MyProc;
 
    A, B: Integer := 0;
    Condition: Boolean := True;
 
-begin
+bgin
    MyProc(A, Condition);  -- Utilisation de la procédure avec une condition initiale
 
    -- il manque le n du then

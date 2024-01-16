@@ -6,28 +6,33 @@ dico = term2
 def compare(p_attendu, p_reel):
     """return si moins de 2 diff entre p1 et les lettres de p2"""
     global dico
+
+    if type(p_reel) != int:
+        if p_attendu == 286 and p_reel[0] == 286 or p_attendu == 285 and p_reel[0] == 285:
+            return True
+
     if type(p_reel) == int and type(p_attendu) == int:
         return p_reel == p_attendu
 
-    elif type(p_reel) == int:  # cas où on attendait un id ou nbr spécifique
+    elif type(p_reel) == int:  # cas ou on attendait un id ou nbr spécifique
         if p_attendu[0] == 286:  # on attendait un nombre
             return False
         else:  # on attend un identifiant
             mot_reel = dico.get(p_reel)  # a modif proprement
             mot_attendu = p_attendu[1]
-            return compare_string(mot_reel, mot_attendu)
+            return compare_string(mot_attendu, mot_reel)
 
-    elif type(p_attendu) == int:  # cas où on a un id ou nbr spécifique
+    elif type(p_attendu) == int:  # cas ou on a un id ou nbr spécifique
         if p_reel[0] == 286:  # on a un nombre
             return False
         else:  # on a un identifiant
             mot_reel = p_reel[1]  # a modif proprement
 
             mot_attendu = dico.get(p_attendu)
-            return compare_string(mot_reel, mot_attendu)
+            return compare_string(mot_attendu, mot_reel)
 
     else:  # cas où les deux sont 285 ou 286
-        if p_attendu[0] == 286 and p_reel[0] == 285:  # on attendait un nombre, mais on a eu un id
+        if p_attendu[0] == 286 and p_reel[0] == 285:  # on attendait un nombre mais on a eu un id
             return False
         elif p_attendu[0] == p_reel[0]:  # deux id ou deux nombres
             return compare_string(p_attendu[1], p_reel[1])
@@ -36,6 +41,9 @@ def compare(p_attendu, p_reel):
 
 
 def compare_string(chaine1, chaine2):
+    if len(chaine1) == 1 and chaine1 != chaine2:
+        return False
+
     if abs(len(chaine1) - len(chaine2)) > 1:
         return False
     differences = 0
@@ -55,6 +63,8 @@ def compare_string(chaine1, chaine2):
             i += 1
             j += 1
     differences += abs(len(chaine1) - i) + abs(len(chaine2) - j)
+    if differences == 1:
+        print("WARNING :", chaine1, "était attendu, mais", chaine2, "a été écrit à la place.")
     return differences < 2 or atMostSwitch(chaine1, chaine2)
 
 
@@ -67,6 +77,10 @@ def atMostSwitch(chaine1, chaine2):
         if char1 != char2:
             differences += 1
             positions_differentes.append(i)
+    if (differences == 2 and positions_differentes[0] + 1 == positions_differentes[1] and chaine1[
+        positions_differentes[0]] == chaine2[positions_differentes[1]] and chaine1[positions_differentes[1]] == chaine2[
+        positions_differentes[0]]):
+        print("WARNING :", chaine1, "était attendu, mais", chaine2, "a été écrit à la place.")
     return (differences == 2 and positions_differentes[0] + 1 == positions_differentes[1] and chaine1[
         positions_differentes[0]] == chaine2[positions_differentes[1]] and chaine1[positions_differentes[1]] == chaine2[
                 positions_differentes[0]]) or differences == 0

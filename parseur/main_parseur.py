@@ -58,17 +58,17 @@ def generate_final_AST(root):
 
 
 if __name__ == '__main__':
-    # print("On va maintenant tester notre parseur")
-    # print("Pour chaque test, on va afficher la liste de token renvoyé par le lexeur, puis générer l'arbre syntaxique "
-    #       "associé")
-    # print("On va tester les exemples suivants :")
-    # print("On commence par un exemple simple : un programme qui se charge de faire une somme entre 2 entiers :")
-    # token_list = file.get_token("exemples/exemple_calcul.ada")
-    # print(token_list)
-    # root = Node('N1')
-    # print(parseur.functions.fonction_N1(token_list, root))
-    # generate_final_AST(root)
-    # generate_tree("tree_calcul.png")
+    print("On va maintenant tester notre parseur")
+    print("Pour chaque test, on va afficher la liste de token renvoyé par le lexeur, puis générer l'arbre syntaxique "
+          "associé")
+    print("On va tester les exemples suivants :")
+    print("On commence par un exemple simple : un programme qui se charge de faire une somme entre 2 entiers :")
+    token_list = file.get_token("exemples/exemple_calcul.ada")
+    print(token_list)
+    root = Node('N1')
+    print(parseur.functions.fonction_N1(token_list, root))
+    generate_final_AST(root)
+    generate_tree("tree_calcul.png")
     #
     # print("On va maintenant tester un exemple qui contient des procédures imbriquées :")
     # token_list = file.get_token("exemples/exemple_double_procedure.ada")
@@ -133,21 +133,13 @@ if __name__ == '__main__':
     # print(parseur.functions.fonction_N1(token_list, root))
     # generate_final_AST(root)
     # generate_tree("tree_exemple.png")
-    #
-    print("On va maintenant tester un exemple qui contient des erreurs :")
-    token_list = file.get_token("exemples/exemple_erreur_caract.ada")
-    print(token_list)
-    root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
-    generate_final_AST(root)
-    generate_tree("exemple_erreur_caract.png")
 
-    token_list = file.get_token("exemples/exemple_erreur_ortho.ada")
-    print(token_list)
-    root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
-    generate_final_AST(root)
-    generate_tree("exemple_erreur_ortho.png")
+    # token_list = file.get_token("exemples/exemple_erreur_ortho.ada")
+    # print(token_list)
+    # root = Node('N1')
+    # print(parseur.functions.fonction_N1(token_list, root))
+    # generate_final_AST(root)
+    # generate_tree("exemple_erreur_ortho.png")
 
     # Display the tree structure
     # for pre, _, node in RenderTree(root):
