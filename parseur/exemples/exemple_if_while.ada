@@ -15,9 +15,9 @@ begin
    MyProc(A, Condition);  -- Utilisation de la procédure avec une condition initiale
 
    if Condition then
-      Put_Line("Condition est vraie.");
+      test_if;
    else
-      Put_Line("Condition est fausse.");
+      test_else;
    end if;
 
    while B < 5 loop

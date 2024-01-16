@@ -3,7 +3,7 @@
 
 # initialisation du dictionnaire vide
 term = {}
-
+term2 = {}
 # tableau contenant l'ensemble des caractères et mots clés reconnus par le lexeur
 cle = ['!', '\'', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/',
        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -39,7 +39,7 @@ valeur = [
     # '{', '|', '}', '~',
       123, 124, 125, 126,
     # 'access', 'and', 'begin', 'else', 'elsif', 'end', 'false', 'for', 'function', 'if', 'in', 'is', 'loop', 'new',
-        256,     257,    258,     259,    260,    261,    262,    263,       264,    265,  266,  267,   268,   269,
+        256,     257,    258,     259,    260,    261,    262,    263,      264,     265,  266,  267,   268,   269,
     # 'not', 'null', 'or', 'out', 'procedure', 'record', 'rem', 'return', 'reverse', 'then', 'true', 'type', 'use',
        270,   271,   272,   273,      274,        275,    276,     277,       278,     279,    280,    281,    282,
     # 'while', 'with', 'id', 'num', 'character', 'val']
@@ -48,6 +48,9 @@ valeur = [
 # remplissage du dictionnaire
 for i in range(len(cle)):
     term[cle[i]] = valeur[i]
+
+for i in range(len(valeur)):
+    term2[valeur[i]] = cle[i]
 
 
 def get_term():
