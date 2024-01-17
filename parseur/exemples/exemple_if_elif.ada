@@ -5,9 +5,12 @@ procedure Example_If is
    X : Integer;
 
 begin
+
    -- Utilisation de l'instruction if sans print
-   if X > 0 then
-      test1; -- Aucune action pour le cas où le nombre est positif
+   if X >= 0 then
+      test1 := 10;
+      test12 := 10;
+      test13 := test1 + test12;
    elsif X = 0 then
       test2; -- Aucune action pour le cas où le nombre est nul
    else
