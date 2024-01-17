@@ -107,6 +107,16 @@ def boucle_node(root):
     for node in PreOrderIter(root):
         if(node.name != "N1"):
             rename(node)
+def A2_destroyer(root):
+    name = root.name.split(" ")
+    root.name = name[0] + " Expr"
+    for node in PreOrderIter(root):
+        nameNode = node.name.split(" ")
+        if nameNode[1] == "A2":
+            children = node.children
+            for i in range(len(children)):
+                children[i].parent = node.parent
+            node.parent = None
 
 def test_logique(root):
     for node in PreOrderIter(root):
@@ -134,9 +144,13 @@ def test_if(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if (nameS[1] == "instruction"):
-                    sibling[i].name = nameS[0] + " " + string
+                if (nameS[1] == "A2"):
+                    A2_destroyer(sibling[i])
                     sibling[i].parent = node
+                    break
+                if(nameS[1] == "instruction"):
+                    x = Node(nameS[0] + " Expr", node)
+                    sibling[i].parent = x
                     break
             sibling = node.siblings
             for i in range(0, len(sibling)):
@@ -146,6 +160,7 @@ def test_if(node, string):
                     sibling[i].parent = None
                     sibling[i + 1].parent = None
                     break
+
 
 
 def test_elsif(node, string):
@@ -168,10 +183,17 @@ def test_elsif(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if (nameS[1] == "instruction"):
-                    sibling[i].name = nameS[0] + " " + string
+                if (nameS[1] == "A2"):
+                    A2_destroyer(sibling[i])
                     sibling[i].parent = node
                     break
+                if(nameS[1] == "instruction"):
+                    x = Node(nameS[0] + " Expr", node)
+                    sibling[i].parent = x
+                    break
+            temp = node.parent.parent
+            node.parent.parent = None
+            node.parent = temp
 
 def test_else(node, string):
     if (node.name != "N1"):
@@ -180,10 +202,18 @@ def test_else(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if (nameS[1] == "instruction"):
-                    sibling[i].name = nameS[0] + " " + string
+                if (nameS[1] == "A2"):
+                    A2_destroyer(sibling[i])
                     sibling[i].parent = node
                     break
+                if (nameS[1] == "instruction"):
+                    x = Node(nameS[0] + " Expr", node)
+                    sibling[i].parent = x
+                    break
+
+            temp = node.parent.parent
+            node.parent.parent = None
+            node.parent = temp
 
 if __name__ == '__main__':
     print("On va maintenant tester notre parseur")
