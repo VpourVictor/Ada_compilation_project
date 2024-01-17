@@ -179,25 +179,19 @@ def generate_final_AST(root):
     for i in range(h):
         for node in PostOrderIter(root):
             clean(node)
-
-
     for node in PreOrderIter(root):
         if node.name != "N1":
             operation(node)
-
     for i in range(0, 2):
         for node in PreOrderIter(root):
             if node.name != "N1":
                 name = node.name.split(" ")
                 if name[1][:4] == "EXPR":
                     operation(node)
-
-
     for i in range(0, 5):
         for node in PreOrderIter(root):
             if node.name != 'N1':
                 supprimer_Expr(node)
-
     for node in PreOrderIter(root):
         if node.name != "N1":
             delete_node(node)
@@ -209,6 +203,24 @@ def generate_final_AST(root):
             operationCond(node)
 
     return root
+
+"""
+
+"""
+"""
+
+
+"""
+"""
+
+"""
+"""
+
+"""
+#
+"""
+
+"""
 
 
 def hauteur_arbre(root):
@@ -266,17 +278,6 @@ def operationCond(node):
     # si le noeud à 4 fils
     elif len(node.children) == 4:
         reduce_ope4(node)
-    elif len(node.children) >= 5:
-        # c'est à dire que le noeud à 5 ou plus,
-        # il faut reformer dans le bon ordre les noeuds des opérations
-        # on récupère dans un tableau tous les fils
-        fils = []
-        for i in range(len(node.children)):
-            fils.append(node.children[i].name)
-
-        fils = sorted(fils)
-        for i in range(len(node.children)):
-            node.children[i].name = fils[i]
 
 
 def countleaves(node):
@@ -347,9 +348,9 @@ def A2_destroyer(root):
 
 def test_logique(root):
     for node in PreOrderIter(root):
-        test_if(node, "Expr")
-        test_elsif(node, "Expr")
-        test_else(node, "Expr")
+        test_if(node, "BLOCK")
+        test_elsif(node, "BLOCK")
+        test_else(node, "BLOCK")
 
 
 def test_if(node, string):
