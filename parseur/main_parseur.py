@@ -223,7 +223,7 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
     generate_tree("tree_calcul.png")
-
+    """
     print("On va maintenant tester un exemple qui contient des procédures imbriquées :")
     token_list = file.get_token("exemples/exemple_double_procedure.ada")
     print(token_list)
@@ -294,7 +294,7 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
     generate_tree("exemple_erreur_ortho.png")
-
+    """
     # Display the tree structure
     # for pre, _, node in RenderTree(root):
     #     print(f"{pre}{node.name}")
