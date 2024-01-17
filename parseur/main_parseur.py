@@ -155,7 +155,6 @@ def removeA2(node):
 
 def cas_difference(node):
     if node.name.split(" ")[1] == "condExpr":
-        print("dfnkdsnkjnskjnfkdsnfdslknflkdsnflkdsnflkdsnflkdsnfdlksndsnflkdsnf")
         children = node.children
         for i in range(0, len(children)):
             name = children[i].name.split(" ")
@@ -170,8 +169,11 @@ def cas_difference(node):
             if name[1] == "/":
                 children[i].parent = None
 
-        node.name = node.name.split(" ")[0] + " " + "/="
-
+        if len(children) != 1:
+            node.name = node.name.split(" ")[0] + " " + "/="
+        else:
+            node.children[0].parent = node.parent
+            node.parent = None
 
 def generate_final_AST(root):
     delete_leef_epsX(root)
