@@ -21,7 +21,6 @@ begin
    end if;
 
    while B < 5 loop
-      Put(B);
       New_Line;
 
       B := B + 1;
