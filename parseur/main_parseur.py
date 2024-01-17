@@ -4,6 +4,9 @@ from anytree.exporter import DotExporter
 import lexeur.file_to_code_ter as file
 import parseur.functions
 
+dico_N = {"N9": "instruction"}
+
+
 # def delete_EXPR1(root):
 #     for pre, _, node in RenderTree(root):
 #         if "N9" in node.name :
@@ -30,13 +33,14 @@ def delete_leef_epsX(racine):
 
 def isDelete(name):
     nom = name.split(" ")
-    return nom[1][0].isalpha()
+    return nom[1][0].isupper() or nom[1] in [".", ",", "(", ")", ";", "is", "begin", "with", "id(Ada)", "id(Text_IO)",
+                                             "use"]
 
 
 def supprimer_noeuds_un_seul_fils(node):
     children = node.children
-    if len(children) == 1 :
-        #if len(children) == 1 and not children[0].is_leaf:
+    if len(children) == 1:
+        # if len(children) == 1 and not children[0].is_leaf:
         # Si le nœud a un seul fils qui n'est pas une feuille, le supprimer
         parent = node.parent
         node.parent = None  # Cela supprime le nœud de son parent
@@ -50,9 +54,9 @@ def remove_duplicate_parent_links(node):
     l = len(children)
 
     if l == 2 and children[0].name == children[1].name:
-        if children[0].is_leaf :
+        if children[0].is_leaf:
             children[0].parent = None
-        else :
+        else:
             children[1].parent = None
         return True
 
@@ -64,9 +68,9 @@ def remove_duplicate_parent_links(node):
         j = 0
         nb_of_del = 0
         while j != l - 1:
-            if children[j+nb_of_del].name in (L[:j] + L[j + 1:]):
+            if children[j + nb_of_del].name in (L[:j] + L[j + 1:]):
                 nb_of_del += 1
-                children[j+nb_of_del].parent = None
+                children[j + nb_of_del].parent = None
                 l -= 1
                 del L[j]
                 j -= 1
@@ -83,21 +87,128 @@ def delete_all_duplicates(root):
             delete_all_duplicates(root)
 
 
+def supprimer_Expr(node):
+    name = node.name.split(" ")
+    if name[1][0] == "E":
+        children = node.children
+        parent = node.parent
+        node.parent = None  # Cela supprime le nœud de son parent
+        for i in range(len(node.children)):
+            children[i].parent = parent
+        return True
+
+
 def delete_all_nodes(root):
     for node in PreOrderIter(root):
         if supprimer_noeuds_un_seul_fils(node):
             delete_all_nodes(root)
-
+        if node.name != 'N1':
+            supprimer_Expr(node)
 
 def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
     # delete_all_duplicates(root)
+
+    boucle_node(root)
+    test_logique(root)
     return root
 
 
 def countleaves(node):
     return sum(1 for _ in PreOrderIter(node, filter_=lambda x: x.is_leaf))
+
+
+def rename(node):
+    name = node.name.split(" ")
+    if name[1] in dico_N.keys():
+        node.name = name[0] + " " + dico_N[name[1]]
+
+
+def boucle_node(root):
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            rename(node)
+
+
+def test_logique(root):
+    for node in PreOrderIter(root):
+        test_if(node, "Expr")
+        test_elsif(node, "Expr")
+        test_else(node, "Expr")
+
+
+def test_if(node, string):
+    if node.name != "N1":
+        name = node.name.split(" ")[1]
+        if name == "if":
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if nameS[1] == "N8":
+                    sibling[i].name = nameS[0] + " " + "condExpr"
+                    sibling[i].parent = node
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if nameS[1] == "then":
+                    sibling[i].parent = None
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if nameS[1] == "instruction":
+                    sibling[i].name = nameS[0] + " " + string
+                    sibling[i].parent = node
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")[1]
+                nameS2 = sibling[i + 1].name.split(" ")[1]
+                if nameS == "end" and nameS2 == "if":
+                    sibling[i].parent = None
+                    sibling[i + 1].parent = None
+                    break
+
+
+def test_elsif(node, string):
+    if node.name != "N1":
+        name = node.name.split(" ")[1]
+        if name == "elsif":
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if nameS[1] == "N8":
+                    sibling[i].name = nameS[0] + " " + "condExpr"
+                    sibling[i].parent = node
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if nameS[1] == "then":
+                    sibling[i].parent = None
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if nameS[1] == "instruction":
+                    sibling[i].name = nameS[0] + " " + string
+                    sibling[i].parent = node
+                    break
+
+
+def test_else(node, string):
+    if node.name != "N1":
+        name = node.name.split(" ")[1]
+        if name == "else":
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if nameS[1] == "instruction":
+                    sibling[i].name = nameS[0] + " " + string
+                    sibling[i].parent = node
+                    break
 
 
 if __name__ == '__main__':

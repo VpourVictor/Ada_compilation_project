@@ -55,3 +55,5 @@ for i in range(len(valeur)):
 
 def get_term():
     return term
+
+print(term2[46])

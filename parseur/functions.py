@@ -2,6 +2,10 @@ from anytree import Node
 
 from parseur.reader_carac import reader_carac
 
+import lexeur.dictionnaire_ter as dico
+
+dict = dico.term2
+
 def switch_fonction(name, token_list, count_tmp, noeud):
     result = None
     match name:
@@ -194,7 +198,12 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
         result = reader_carac(list_att[local], token_list, count_tmp)
         if result[0]:
             count_tmp = result[1]
-            Node("" + str(count_tmp) + " " + str(list_att[local]), parent=parent)
+            if not ((list_att[local] == 285) or (list_att[local] == 286)):
+                Node("" + str(count_tmp) + " " + dict[list_att[local]], parent=parent)
+            elif (list_att[local] == 285):
+                Node("" + str(count_tmp) + " " + "id(" + token_list[count_tmp - 1][1] + ")", parent=parent)
+            else:
+                Node("" + str(count_tmp) + " " + "num(" + token_list[count_tmp - 1][1] + ")", parent=parent)
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
                 # print("INT : On termine le tableau local, dernier terme lu = " + str(
@@ -221,7 +230,7 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
             #     list_att[local]) + " avec count_tmp : ", count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
-            # print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
+            print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
             return False, count_tmp, parent
 
 
