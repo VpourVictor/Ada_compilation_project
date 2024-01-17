@@ -10,180 +10,180 @@ def switch_fonction(name, token_list, count_tmp, noeud):
     result = None
     match name:
         case 'A1':
-            print("---------------------------------------------------------------------> entrée A1")
+            # print("---------------------------------------------------------------------> entrée A1")
             result = fonction_A1(token_list, count_tmp, noeud)
         case 'A2':
-            print("---------------------------------------------------------------------> entrée A2")
+            # print("---------------------------------------------------------------------> entrée A2")
             result = fonction_A2(token_list, count_tmp, noeud)
         case 'A22':
             result = fonction_A22(token_list, count_tmp, noeud)
         case 'A3':
-            print("---------------------------------------------------------------------> entrée A3")
+            # print("---------------------------------------------------------------------> entrée A3")
             result = fonction_A3(token_list, count_tmp, noeud)
         case 'A4':
-            print("---------------------------------------------------------------------> entrée A4")
+            # print("---------------------------------------------------------------------> entrée A4")
             result = fonction_A4(token_list, count_tmp, noeud)
         case 'A42':
-            print("---------------------------------------------------------------------> entrée A42")
+            # print("---------------------------------------------------------------------> entrée A42")
             result = fonction_A42(token_list, count_tmp, noeud)
         case 'A5':
-            print("---------------------------------------------------------------------> entrée A5")
+            # print("---------------------------------------------------------------------> entrée A5")
             result = fonction_A5(token_list, count_tmp, noeud)
         case 'A52':
-            print("---------------------------------------------------------------------> entrée A52")
+            # print("---------------------------------------------------------------------> entrée A52")
             result = fonction_A52(token_list, count_tmp, noeud)
         case 'A6':
-            print("---------------------------------------------------------------------> entrée A6")
+            # print("---------------------------------------------------------------------> entrée A6")
             result = fonction_A6(token_list, count_tmp, noeud)
         case 'A7':
-            print("---------------------------------------------------------------------> entrée A7")
+            # print("---------------------------------------------------------------------> entrée A7")
             result = fonction_A7(token_list, count_tmp, noeud)
         case 'A8':
-            print("---------------------------------------------------------------------> entrée A8")
+            # print("---------------------------------------------------------------------> entrée A8")
             result = fonction_A8(token_list, count_tmp, noeud)
         case 'A82':
-            print("---------------------------------------------------------------------> entrée A82")
+            # print("---------------------------------------------------------------------> entrée A82")
             result = fonction_A82(token_list, count_tmp, noeud)
         case 'A9':
-            print("---------------------------------------------------------------------> entrée A9")
+            # print("---------------------------------------------------------------------> entrée A9")
             result = fonction_A9(token_list, count_tmp, noeud)
         case 'A10':
-            print("---------------------------------------------------------------------> entrée A10")
+            # print("---------------------------------------------------------------------> entrée A10")
             result = fonction_A10(token_list, count_tmp, noeud)
         case 'A102':
-            print("---------------------------------------------------------------------> entrée A102")
+            # print("---------------------------------------------------------------------> entrée A102")
             result = fonction_A102(token_list, count_tmp, noeud)
         case 'A11':
-            print("---------------------------------------------------------------------> entrée A11")
+            # print("---------------------------------------------------------------------> entrée A11")
             result = fonction_A11(token_list, count_tmp, noeud)
         case 'A12':
-            print("---------------------------------------------------------------------> entrée A12")
+            # print("---------------------------------------------------------------------> entrée A12")
             result = fonction_A12(token_list, count_tmp, noeud)
         case 'A13':
-            print("---------------------------------------------------------------------> entrée A13")
+            # print("---------------------------------------------------------------------> entrée A13")
             result = fonction_A13(token_list, count_tmp, noeud)
         case 'A14':
-            print("---------------------------------------------------------------------> entrée A14")
+            # print("---------------------------------------------------------------------> entrée A14")
             result = fonction_A14(token_list, count_tmp, noeud)
         case 'A15':
-            print("---------------------------------------------------------------------> entrée A15")
+            # print("---------------------------------------------------------------------> entrée A15")
             result = fonction_A15(token_list, count_tmp, noeud)
         case 'A16':
-            print("---------------------------------------------------------------------> entrée A16")
+            # print("---------------------------------------------------------------------> entrée A16")
             result = fonction_A16(token_list, count_tmp, noeud)
         case 'N11':
-            print("---------------------------------------------------------------------> entrée N11")
+            # print("---------------------------------------------------------------------> entrée N11")
             result = fonction_N11(token_list, count_tmp, noeud)
         case 'N111':
-            print("---------------------------------------------------------------------> entrée N111")
+            # print("---------------------------------------------------------------------> entrée N111")
             result = fonction_N111(token_list, count_tmp, noeud)
         case 'N16':
-            print("---------------------------------------------------------------------> entrée N16")
+            # print("---------------------------------------------------------------------> entrée N16")
             result = fonction_N16(token_list, count_tmp, noeud)
         case 'N2':
-            print("---------------------------------------------------------------------> entrée N2")
+            # print("---------------------------------------------------------------------> entrée N2")
             result = fonction_N2(token_list, count_tmp, noeud)
         case 'N21':
-            print("---------------------------------------------------------------------> entrée N21")
+            # print("---------------------------------------------------------------------> entrée N21")
             result = fonction_N21(token_list, count_tmp, noeud)
         case 'N22':
-            print("---------------------------------------------------------------------> entrée N22")
+            # print("---------------------------------------------------------------------> entrée N22")
             result = fonction_N22(token_list, count_tmp, noeud)
         case 'N3':
-            print("---------------------------------------------------------------------> entrée N3")
+            # print("---------------------------------------------------------------------> entrée N3")
             result = fonction_N3(token_list, count_tmp, noeud)
         case 'N4':
-            print("---------------------------------------------------------------------> entrée N4")
+            # print("---------------------------------------------------------------------> entrée N4")
             result = fonction_N4(token_list, count_tmp, noeud)
         case 'N5':
-            print("---------------------------------------------------------------------> entrée N5")
+            # print("---------------------------------------------------------------------> entrée N5")
             result = fonction_N5(token_list, count_tmp, noeud)
         case 'N6':
-            print("---------------------------------------------------------------------> entrée N6")
+            # print("---------------------------------------------------------------------> entrée N6")
             result = fonction_N6(token_list, count_tmp, noeud)
         case 'N7':
-            print("---------------------------------------------------------------------> entrée N7")
+            # print("---------------------------------------------------------------------> entrée N7")
             result = fonction_N7(token_list, count_tmp, noeud)
         case 'N71':
-            print("---------------------------------------------------------------------> entrée N71")
+            # print("---------------------------------------------------------------------> entrée N71")
             result = fonction_N71(token_list, count_tmp, noeud)
         case 'N8':
-            print("---------------------------------------------------------------------> entrée N8")
+            # print("---------------------------------------------------------------------> entrée N8")
             result = fonction_N8(token_list, count_tmp, noeud)
         case 'N800':
-            print("---------------------------------------------------------------------> entrée N800")
+            # print("---------------------------------------------------------------------> entrée N800")
             result = fonction_N800(token_list, count_tmp, noeud)
         case 'N801':
-            print("---------------------------------------------------------------------> entrée N801")
+            # print("---------------------------------------------------------------------> entrée N801")
             result = fonction_N801(token_list, count_tmp, noeud)
         case 'N9':
-            print("---------------------------------------------------------------------> entrée N9")
+            # print("---------------------------------------------------------------------> entrée N9")
             result = fonction_N9(token_list, count_tmp, noeud)
         case 'N92':
-            print("---------------------------------------------------------------------> entrée N92")
+            # print("---------------------------------------------------------------------> entrée N92")
             result = fonction_N92(token_list, count_tmp, noeud)
         case 'N93':
-            print("---------------------------------------------------------------------> entrée N93")
+            # print("---------------------------------------------------------------------> entrée N93")
             result = fonction_N93(token_list, count_tmp, noeud)
         case 'N16':
-            print("---------------------------------------------------------------------> entrée N16")
+            # print("---------------------------------------------------------------------> entrée N16")
             result = fonction_N16(token_list, count_tmp, noeud)
         case 'EXPRA':
-            print("---------------------------------------------------------------------> entrée EXPRA")
+            # print("---------------------------------------------------------------------> entrée EXPRA")
             result = fonction_EXPRA(token_list, count_tmp, noeud)
         case 'EXPRA1':
-            print("---------------------------------------------------------------------> entrée EXPRA1")
+            # print("---------------------------------------------------------------------> entrée EXPRA1")
             result = fonction_EXPRA1(token_list, count_tmp, noeud)
         case 'EXPR1':
-            print("---------------------------------------------------------------------> entrée EXPR1")
+            # print("---------------------------------------------------------------------> entrée EXPR1")
             result = fonction_EXRPR1(token_list, count_tmp, noeud)
         case 'EXPRB1':
-            print("---------------------------------------------------------------------> entrée EXPRB1")
+            # print("---------------------------------------------------------------------> entrée EXPRB1")
             result = fonction_EXPRB1(token_list, count_tmp, noeud)
         case 'EXPRB':
-            print("---------------------------------------------------------------------> entrée EXPRB")
+            # print("---------------------------------------------------------------------> entrée EXPRB")
             result = fonction_EXPRB(token_list, count_tmp, noeud)
         case 'EXPR2':
-            print("---------------------------------------------------------------------> entrée EXPR2")
+            # print("---------------------------------------------------------------------> entrée EXPR2")
             result = fonction_EXPR2(token_list, count_tmp, noeud)
         case 'EXPR3':
-            print("---------------------------------------------------------------------> entrée EXPR3")
+            # print("---------------------------------------------------------------------> entrée EXPR3")
             result = fonction_EXPR3(token_list, count_tmp, noeud)
         case 'EXPRC':
-            print("---------------------------------------------------------------------> entrée EXPRC")
+            # print("---------------------------------------------------------------------> entrée EXPRC")
             result = fonction_EXPRC(token_list, count_tmp, noeud)
         case 'EXPR4':
-            print("---------------------------------------------------------------------> entrée EXPR4")
+            # print("---------------------------------------------------------------------> entrée EXPR4")
             result = fonction_EXPR4(token_list, count_tmp, noeud)
         case 'EXPRE':
-            print("---------------------------------------------------------------------> entrée EXPRE")
+            # print("---------------------------------------------------------------------> entrée EXPRE")
             result = fonction_EXPRE(token_list, count_tmp, noeud)
         case 'EXPRE1':
-            print("---------------------------------------------------------------------> entrée EXPRE1")
+            # print("---------------------------------------------------------------------> entrée EXPRE1")
             result = fonction_EXPRE1(token_list, count_tmp, noeud)
         case 'EXPRE2':
-            print("---------------------------------------------------------------------> entrée EXPRE2")
+            # print("---------------------------------------------------------------------> entrée EXPRE2")
             result = fonction_EXPRE2(token_list, count_tmp, noeud)
         case 'EXPR5':
-            print("---------------------------------------------------------------------> entrée EXPR5")
+            # print("---------------------------------------------------------------------> entrée EXPR5")
             result = fonction_EXPR5(token_list, count_tmp, noeud)
         case 'EXPRF':
-            print("---------------------------------------------------------------------> entrée EXPRF")
+            # print("---------------------------------------------------------------------> entrée EXPRF")
             result = fonction_EXPRF(token_list, count_tmp, noeud)
         case 'EXPR6':
-            print("---------------------------------------------------------------------> entrée EXPR6")
+            # print("---------------------------------------------------------------------> entrée EXPR6")
             result = fonction_EXPR6(token_list, count_tmp, noeud)
         case 'EXPRG':
-            print("---------------------------------------------------------------------> entrée EXPRG")
+            # print("---------------------------------------------------------------------> entrée EXPRG")
             result = fonction_EXPRG(token_list, count_tmp, noeud)
         case 'EXPR7':
-            print("---------------------------------------------------------------------> entrée EXPR7")
+            # print("---------------------------------------------------------------------> entrée EXPR7")
             result = fonction_EXPR7(token_list, count_tmp, noeud)
         case 'EXPR8':
-            print("---------------------------------------------------------------------> entrée EXPR8")
+            # print("---------------------------------------------------------------------> entrée EXPR8")
             result = fonction_EXPR8(token_list, count_tmp, noeud)
         case 'default':
-            print("---------------------------------------------------------------------> entrée .")
+            # print("---------------------------------------------------------------------> entrée .")
             result = False, count_tmp
 
     return result
@@ -230,7 +230,7 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
             #     list_att[local]) + " avec count_tmp : ", count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
-            print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
+            # print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
             return False, count_tmp, parent
 
 

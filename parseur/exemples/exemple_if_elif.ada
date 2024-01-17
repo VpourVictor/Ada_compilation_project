@@ -7,7 +7,7 @@ procedure Example_If is
 begin
 
    -- Utilisation de l'instruction if sans print
-   if X > 0 then
+   if X >= 0 then
       test1 := 10;
       test12 := 10;
       test13 := test1 + test12;

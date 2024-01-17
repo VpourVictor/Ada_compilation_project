@@ -47,6 +47,7 @@ def supprimer_noeuds_un_seul_fils(node):
         return True
     return False
 
+
 def remove_duplicate_parent_links(node):
     children = node.children
     l = len(children)
@@ -78,6 +79,7 @@ def remove_duplicate_parent_links(node):
 
     return False
 
+
 def remove_duplicate_children_working(node):
     # ajout d'un dictionnaire pour compter les children qui ont le meme père
     count_children = {}
@@ -89,6 +91,8 @@ def remove_duplicate_children_working(node):
             else: # On ajoute les enfants du noeud qu'on supprime
                 count_children[parent][child.name].children += child.children
                 child.parent = None
+
+
 def delete_all_duplicates(root):
     for node in PreOrderIter(root):
         if remove_duplicate_parent_links(node):
@@ -110,14 +114,30 @@ def delete_all_nodes(root):
     for node in PreOrderIter(root):
         if supprimer_noeuds_un_seul_fils(node):
             delete_all_nodes(root)
-        if node.name != 'N1':
-            supprimer_Expr(node)
+
+
+def operation(node):
+    for i in range(0, len(node.children)):
+        # si un noeud à un enfant qui est un opérateur
+        name = node.children[i].name.split(" ")
+        op = ["+", "-", "*", "/"]
+        if name[1] in op:
+            # les frères de l'opérateur deviennent les enfants du père du noeud
+            freres = node.children[i].siblings
+            for j in range(0, len(freres)):
+                freres[j].parent = node.parent
+            # on change le nom du père du noeud par le nom de l'opérateur
+            node.parent.name = name[0] + " " + name[1]
+            # on supprime le noeud
+            node.parent = None
+            break
+
+
 
 def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
     remove_duplicate_children_working(root)
-    # delete_all_duplicates(root)
     boucle_node(root)
     test_logique(root)
     for node in PreOrderIter(root):
@@ -127,10 +147,101 @@ def generate_final_AST(root):
                 for i in range(0, len(node.children)):
                     name = node.children[i].name.split(" ")
                     if name[1] == "return":
-                        return_instr(node.parent)
+                        return_instr(node)
                     elif name[1] == "N92":
                         affect(node)
+
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            operation(node)
+
+    for i in range(0, 2):
+        for node in PreOrderIter(root):
+            if node.name != "N1":
+                name = node.name.split(" ")
+                if name[1][:4] == "EXPR":
+                    operation(node)
+
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            delete_node(node)
+
+    for i in range(0, 5):
+        for node in PreOrderIter(root):
+            if node.name != 'N1':
+                supprimer_Expr(node)
+
+    remove_duplicate_children_working(root)
+
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            operationCond(node)
+
     return root
+
+
+def reduce_ope3(node):
+    node_nom = node.name.split(" ")
+    if node_nom[1] == "condExpr":
+        # on récupère dans un tableau les noms des 3 fils
+        name = [node.children[0].name.split(" ")[1], node.children[1].name.split(" ")[1],
+                node.children[2].name.split(" ")[1]]
+        # si le fils du milieu est un opérateur
+        tab_ope = ["+", "-", "*", "/", ">", "<"]
+        if node_nom[1] == "condExpr":
+            tab_ope.append("=")
+        if name[1] in tab_ope:
+            # on récupère les 2 fils du milieu
+            children = [node.children[0], node.children[2]]
+            # on supprime le noeud du milieu
+            node.children[1].parent = None
+            # on ajoute les 2 fils du milieu au noeud parent
+            for i in range(len(children)):
+                children[i].parent = node
+            # on renomme le noeud parent
+            node.name = node.name.split(" ")[0] + " " + name[1]
+
+
+def reduce_ope4(node):
+    node_nom = node.name.split(" ")
+    if node_nom[1] == "condExpr":
+        # on récupère dans un tableau les noms des 4 fils
+        name = [node.children[0].name.split(" ")[1], node.children[1].name.split(" ")[1],
+                node.children[2].name.split(" ")[1], node.children[3].name.split(" ")[1]]
+        # on concatène les noms des 2 fils du milieu
+        ope = name[1] + "" + name[2]
+        # si le fils du milieu est un opérateur
+        tab_ope = ["<=", ">=", "/="]
+        if ope in tab_ope:
+            # on récupère les 2 filsà garder
+            children = [node.children[0], node.children[3]]
+            # on supprime les 2 fils du milieu
+            node.children[2].parent = None
+            node.children[1].parent = None
+            # on ajoute les 2 fils du milieu au noeud parent
+            for i in range(len(children)):
+                children[i].parent = node
+            # on renomme le noeud parent
+            node.name = node.name.split(" ")[0] + " " + ope
+
+
+def operationCond(node):
+    if len(node.children) == 3:
+        reduce_ope3(node)
+    # si le noeud à 4 fils
+    elif len(node.children) == 4:
+        reduce_ope4(node)
+    elif len(node.children) >= 5:
+        # c'est à dire que le noeud à 5 ou plus,
+        # il faut reformer dans le bon ordre les noeuds des opérations
+        # on récupère dans un tableau tous les fils
+        fils = []
+        for i in range(len(node.children)):
+            fils.append(node.children[i].name)
+
+        fils = sorted(fils)
+        for i in range(len(node.children)):
+            node.children[i].name = fils[i]
 
 
 def countleaves(node):
@@ -157,12 +268,31 @@ def affect(node):
 def return_instr(node):
     name = node.name.split(" ")
     node.name = name[0] + " " + "return"
+    for i in range(0, len(node.children)):
+        name = node.children[i].name.split(" ")
+        if name[1] == "N8":
+            list_children = node.children[i].children
+            node.children[i].name = node.children[i].children[len(node.children[i].children) - 1].name
+            node.children[i].children = list_children[len(node.children[i].children) - 1].children
+
+
+def delete_node(node):
+    for i in range(0, len(node.children)):
+        name = node.children[i].name.split(" ")
+        if name[1] == "return":
+            node.children[i].parent = None
+            break
+        if name[1] == "N8":
+            node.children[i].parent = None
+            break
 
 
 def boucle_node(root):
     for node in PreOrderIter(root):
         if node.name != "N1":
             rename(node)
+
+
 def A2_destroyer(root):
     name = root.name.split(" ")
     root.name = name[0] + " Expr"
