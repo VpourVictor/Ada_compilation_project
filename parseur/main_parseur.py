@@ -28,14 +28,13 @@ def delete_leef_epsX(racine):
 
 def isDelete(name):
     nom = name.split(" ")
-    return nom[1][0].isupper() or nom[1] in [".", ",", "(", ")", ";", "is", "begin", "with", "id(Ada)", "id(Text_IO)", "use"]
+    return nom[1][0].isupper() or nom[1] in [".", ",", "(", ")", ";", "is", "begin", "with", "id(Ada)", "id(Text_IO)",
+                                             "use"]
 
 
 def supprimer_noeuds_un_seul_fils(node):
     children = node.children
-    if len(children) == 1 :
-        #if len(children) == 1 and not children[0].is_leaf:
-        # Si le nœud a un seul fils qui n'est pas une feuille, le supprimer
+    if len(children) == 1:
         parent = node.parent
         node.parent = None  # Cela supprime le nœud de son parent
         children[0].parent = parent
@@ -83,7 +82,8 @@ def remove_duplicate_children_working(node):
         for child in parent.children:
             if child.name not in count_children[parent]:
                 count_children[parent][child.name] = child
-            else: # On ajoute les enfants du noeud qu'on supprime
+            else:
+                # On ajoute les enfants du noeud qu'on supprime
                 count_children[parent][child.name].children += child.children
                 child.parent = None
 
@@ -130,15 +130,15 @@ def operation(node):
 
 def addBlockNode(node):
     name = node.name.split(" ")
-    x = Node(name[0]+" BLOCK", node.parent)
+    x = Node(name[0] + " BLOCK", node.parent)
     node.parent = x
     return x
 
 
 def clean(node):
     children = node.children
-    for j in range(0, len(children)-1):
-        for i in range(j+1,len(children)):
+    for j in range(0, len(children) - 1):
+        for i in range(j + 1, len(children)):
             if int(children[j].name.split(" ")[0]) > int(children[i].name.split(" ")[0]):
                 children[j].parent = None
                 children[j].parent = node
@@ -175,6 +175,7 @@ def cas_difference(node):
             node.children[0].parent = node.parent
             node.parent = None
 
+
 def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
@@ -193,7 +194,7 @@ def generate_final_AST(root):
                     elif name[1] == "N92":
                         affect(node)
             if name[1] == "A2":
-                A2counter +=1
+                A2counter += 1
     for i in range(A2counter):
         removeA2(root)
     clean(root)
@@ -357,10 +358,10 @@ def boucle_node(root):
         if node.name != "N1":
             rename(node)
             blocWhile(node)
+            gestionA6(node)
 
 
 def A2_destroyer(root):
-
     children = root.children
     for i in range(len(children)):
         nameChildren = children[i].name.split(" ")
@@ -371,21 +372,22 @@ def A2_destroyer(root):
         children[j].parent = root.parent
     root.parent = None
 
+
 def test_logique(root):
     for node in PreOrderIter(root):
-        test_if(node, "BLOCK")
-        test_elsif(node, "BLOCK")
-        test_else(node, "BLOCK")
+        test_if(node)
+        test_elsif(node)
+        test_else(node)
 
 
-def test_if(node, string):
+def test_if(node):
     if node.name != "N1":
         name = node.name.split(" ")[1]
         if name == "if":
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if (nameS[1] == "N8"):
+                if nameS[1] == "N8":
                     sibling[i].name = nameS[0] + " " + "condExpr"
                     sibling[i].parent = node
                     break
@@ -398,11 +400,11 @@ def test_if(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if(nameS[1] == "instruction"):
+                if nameS[1] == "instruction":
                     x = Node(nameS[0] + " BLOCK", node)
                     sibling[i].parent = x
                     break
-                if(nameS[1] == "A2"):
+                if nameS[1] == "A2":
                     x = addBlockNode(sibling[i])
                     x.parent = node
                     A2_destroyer(sibling[i])
@@ -417,7 +419,7 @@ def test_if(node, string):
                     break
 
 
-def test_elsif(node, string):
+def test_elsif(node):
     if node.name != "N1":
         name = node.name.split(" ")[1]
         if name == "elsif":
@@ -438,11 +440,11 @@ def test_elsif(node, string):
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
 
-                if(nameS[1] == "instruction"):
+                if nameS[1] == "instruction":
                     x = Node(nameS[0] + " BLOCK", node)
                     sibling[i].parent = x
                     break
-                if(nameS[1] == "A2"):
+                if nameS[1] == "A2":
                     x = addBlockNode(sibling[i])
                     x.parent = node
                     A2_destroyer(sibling[i])
@@ -451,18 +453,19 @@ def test_elsif(node, string):
             node.parent.parent = None
             node.parent = temp
 
-def test_else(node, string):
+
+def test_else(node):
     if node.name != "N1":
         name = node.name.split(" ")[1]
         if name == "else":
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if (nameS[1] == "instruction"):
+                if nameS[1] == "instruction":
                     x = Node(nameS[0] + " BLOCK", node)
                     sibling[i].parent = x
                     break
-                if(nameS[1] == "A2"):
+                if nameS[1] == "A2":
                     x = addBlockNode(sibling[i])
                     x.parent = node
                     A2_destroyer(sibling[i])
@@ -470,6 +473,7 @@ def test_else(node, string):
             temp = node.parent.parent
             node.parent.parent = None
             node.parent = temp
+
 
 def blocWhile(node):
     nom = node.name.split(" ")
@@ -480,14 +484,22 @@ def blocWhile(node):
             node.children[3].parent = None
             node.children[3].parent = None
             node.children[1].name = node.children[1].name.split(" ")[0] + " condExpr"
-            node.children[2].name = node.children[2].name.split(" ")[0] + " Expr"
+            node.children[2].name = node.children[2].name.split(" ")[0] + " BLOCK"
             node.children[1].parent = node.children[0]
             node.children[1].parent = node.children[0]
 
+
+def gestionA6(node):
+    nom = node.name.split(" ")
+    if nom[1] == "A6":
+        node.name = nom[0] + " affect :="
+        x = Node(node.children[0].name.split(" ")[0] + " " + node.children[2].name.split(" ")[1], None)
+        for i in range(3):
+            node.children[0].parent = None
+        x.parent = node
 
 
 if __name__ == '__main__':
-
     print("On va maintenant tester notre parseur")
     print("Pour chaque test, on va afficher la liste de token renvoyé par le lexeur, puis générer l'arbre syntaxique "
           "associé")
