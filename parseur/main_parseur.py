@@ -249,7 +249,7 @@ def generate_final_AST(root):
     for node in PreOrderIter(root):
         if node.name != "N1":
             paramVar(node)
-
+            continue
     return root
 
 
@@ -483,7 +483,8 @@ def paramVar(node):
     name = node.name.split(" ")
     if name[1]=="N6":
         nameParent = node.parent.name.split(" ")
-        node.parent.name = nameParent[0] + " declParam"
+        if nameParent[1] != "N2":
+            node.parent.name = nameParent[0] + " declParam"
         children = node.children
         for i in range(len(children)):
             nameChild = children[i].name.split(" ")
