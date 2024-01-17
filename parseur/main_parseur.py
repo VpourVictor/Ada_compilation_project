@@ -1,4 +1,4 @@
-from anytree import Node, RenderTree, search, PreOrderIter
+from anytree import Node, RenderTree, search, PreOrderIter, PostOrderIter
 from anytree.exporter import DotExporter
 
 import lexeur.file_to_code_ter as file
@@ -119,6 +119,14 @@ def addBlockNode(node):
     node.parent = x
     return x
 
+def clean(node):
+    children = node.children
+    for j in range(0, len(children)-1):
+        for i in range(j+1,len(children)):
+            if int(children[j].name.split(" ")[0])> int(children[i].name.split(" ")[0]):
+                children[j].parent = None
+                children[j].parent = node
+
 def removeA2(node):
     for node in PreOrderIter(node):
         if node.name != "N1":
@@ -131,7 +139,6 @@ def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
     remove_duplicate_children_working(root)
-    # delete_all_duplicates(root)
     boucle_node(root)
     test_logique(root)
     A2counter = 0
@@ -149,9 +156,16 @@ def generate_final_AST(root):
                 A2counter +=1
     for i in range(A2counter):
         removeA2(root)
+    clean(root)
+    h = hauteur_arbre(root)
+    for i in range(h):
+        for node in PostOrderIter(root):
+            clean(node)
+
     return root
 
-
+def hauteur_arbre(root):
+    return max(node.depth for node in PreOrderIter(root))
 def countleaves(node):
     return sum(1 for _ in PreOrderIter(node, filter_=lambda x: x.is_leaf))
 
