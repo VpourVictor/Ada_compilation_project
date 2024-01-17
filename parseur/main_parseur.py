@@ -112,10 +112,10 @@ def delete_all_nodes(root):
 
 
 def operation(node):
+    op = ["+", "-", "*", "/"]
     for i in range(0, len(node.children)):
         # si un noeud à un enfant qui est un opérateur
         name = node.children[i].name.split(" ")
-        op = ["+", "-", "*", "/"]
         if name[1] in op:
             # les frères de l'opérateur deviennent les enfants du père du noeud
             freres = node.children[i].siblings
@@ -153,6 +153,26 @@ def removeA2(node):
                 A2_destroyer(node)
 
 
+def cas_difference(node):
+    if node.name.split(" ")[1] == "condExpr":
+        print("dfnkdsnkjnskjnfkdsnfdslknflkdsnflkdsnflkdsnflkdsnfdlksndsnflkdsnf")
+        children = node.children
+        for i in range(0, len(children)):
+            name = children[i].name.split(" ")
+            if name[1] == "/":
+                enfant = children[i].children
+                for j in range(0, len(enfant)):
+                    if enfant[j].name.split(" ")[1] != "=":
+                        enfant[j].parent = node
+
+        for i in range(0, len(children)):
+            name = children[i].name.split(" ")
+            if name[1] == "/":
+                children[i].parent = None
+
+        node.name = node.name.split(" ")[0] + " " + "/="
+
+
 def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
@@ -179,19 +199,23 @@ def generate_final_AST(root):
     for i in range(h):
         for node in PostOrderIter(root):
             clean(node)
+
     for node in PreOrderIter(root):
         if node.name != "N1":
             operation(node)
+
     for i in range(0, 2):
         for node in PreOrderIter(root):
             if node.name != "N1":
                 name = node.name.split(" ")
                 if name[1][:4] == "EXPR":
                     operation(node)
+
     for i in range(0, 5):
         for node in PreOrderIter(root):
             if node.name != 'N1':
                 supprimer_Expr(node)
+
     for node in PreOrderIter(root):
         if node.name != "N1":
             delete_node(node)
@@ -202,25 +226,13 @@ def generate_final_AST(root):
         if node.name != "N1":
             operationCond(node)
 
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            cas_difference(node)
+
+    remove_duplicate_children_working(root)
+
     return root
-
-"""
-
-"""
-"""
-
-
-"""
-"""
-
-"""
-"""
-
-"""
-#
-"""
-
-"""
 
 
 def hauteur_arbre(root):
@@ -374,7 +386,7 @@ def test_if(node, string):
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
                 if(nameS[1] == "instruction"):
-                    x = Node(nameS[0] + " Expr", node)
+                    x = Node(nameS[0] + " BLOCK", node)
                     sibling[i].parent = x
                     break
                 if(nameS[1] == "A2"):
@@ -415,7 +427,7 @@ def test_elsif(node, string):
                 nameS = sibling[i].name.split(" ")
 
                 if(nameS[1] == "instruction"):
-                    x = Node(nameS[0] + " Expr", node)
+                    x = Node(nameS[0] + " BLOCK", node)
                     sibling[i].parent = x
                     break
                 if(nameS[1] == "A2"):
@@ -435,7 +447,7 @@ def test_else(node, string):
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
                 if (nameS[1] == "instruction"):
-                    x = Node(nameS[0] + " Expr", node)
+                    x = Node(nameS[0] + " BLOCK", node)
                     sibling[i].parent = x
                     break
                 if(nameS[1] == "A2"):
