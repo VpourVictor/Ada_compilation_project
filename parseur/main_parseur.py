@@ -123,6 +123,9 @@ def generate_final_AST(root):
     for node in PreOrderIter(root):
         if node.name != "N1":
             name = node.name.split(" ")
+            if name[1] == "A2" or name[1] == "Expr":
+                print(node.name)
+                A2_destroyerBis(node)
             if name[1] == "instruction":
                 for i in range(0, len(node.children)):
                     name = node.children[i].name.split(" ")
@@ -163,6 +166,7 @@ def boucle_node(root):
     for node in PreOrderIter(root):
         if node.name != "N1":
             rename(node)
+            blocWhile(node)
 def A2_destroyer(root):
     name = root.name.split(" ")
     root.name = name[0] + " Expr"
@@ -174,6 +178,16 @@ def A2_destroyer(root):
                 children[i].parent = node.parent
             node.parent = None
 
+def A2_destroyerBis(node):
+    name = node.name.split(" ")
+    node.name = name[0] + " Expr"
+    parent = node.parent
+    if parent.name != "N1":
+        if (parent.name.split(" ")[1] == "A2" or parent.name.split(" ")[1] == "Expr"):
+            children = node.children
+            for i in range(len(children)):
+                children[i].parent = node.parent
+            node.parent = None
 
 def test_logique(root):
     for node in PreOrderIter(root):
@@ -202,10 +216,10 @@ def test_if(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if (nameS[1] == "A2"):
-                    A2_destroyer(sibling[i])
-                    sibling[i].parent = node
-                    break
+                #if (nameS[1] == "A2"):
+                    #A2_destroyer(sibling[i])
+                    #sibling[i].parent = node
+                    #break
                 if(nameS[1] == "instruction"):
                     x = Node(nameS[0] + " Expr", node)
                     sibling[i].parent = x
@@ -241,10 +255,10 @@ def test_elsif(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if (nameS[1] == "A2"):
-                    A2_destroyer(sibling[i])
-                    sibling[i].parent = node
-                    break
+                #if (nameS[1] == "A2"):
+                #    A2_destroyer(sibling[i])
+                #    sibling[i].parent = node
+                #    break
                 if(nameS[1] == "instruction"):
                     x = Node(nameS[0] + " Expr", node)
                     sibling[i].parent = x
@@ -260,10 +274,10 @@ def test_else(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if (nameS[1] == "A2"):
-                    A2_destroyer(sibling[i])
-                    sibling[i].parent = node
-                    break
+                #if (nameS[1] == "A2"):
+                #    A2_destroyer(sibling[i])
+                #    sibling[i].parent = node
+                #    break
                 if (nameS[1] == "instruction"):
                     x = Node(nameS[0] + " Expr", node)
                     sibling[i].parent = x
@@ -273,7 +287,18 @@ def test_else(node, string):
             node.parent.parent = None
             node.parent = temp
 
+def blocWhile(node):
+    nom = node.name.split(" ")
+    if nom[1] == "instruction":
+        nom2 = node.children[0].name.split(" ")
+        if nom2[1] == "while":
+            node.children[2].parent = None
+            node.children[3].parent = None
+            node.children[3].parent = None
+
+
 if __name__ == '__main__':
+    """
     print("On va maintenant tester notre parseur")
     print("Pour chaque test, on va afficher la liste de token renvoyé par le lexeur, puis générer l'arbre syntaxique "
           "associé")
@@ -285,7 +310,7 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
     generate_tree("tree_calcul.png")
-    """
+
     print("On va maintenant tester un exemple qui contient des procédures imbriquées :")
     token_list = file.get_token("exemples/exemple_double_procedure.ada")
     print(token_list)
@@ -301,15 +326,15 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
     generate_tree("tree_if_elif.png")
-
+"""
     print("On va maintenant tester si notre parseur fonctionne avec un programme qui contient des if et des while :")
     token_list = file.get_token("exemples/exemple_if_while.ada")
     print(token_list)
     root = Node('N1')
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
-    generate_tree("tree_if_while.png")
-
+    generate_tree("tree_if_while_bis.png")
+"""
     print("Le test qui suit vise à montrer que l'on traite bien le cas où notre grammaire n'est pas LL1 (/=, /) :")
     token_list = file.get_token("exemples/exemple_division_difference.ada")
     print(token_list)
@@ -356,7 +381,8 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
     generate_tree("exemple_erreur_ortho.png")
-    """
+
     # Display the tree structure
     # for pre, _, node in RenderTree(root):
     #     print(f"{pre}{node.name}")
+"""
