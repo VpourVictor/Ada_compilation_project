@@ -112,6 +112,16 @@ def generate_final_AST(root):
 
     boucle_node(root)
     test_logique(root)
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            name = node.name.split(" ")
+            if name[1] == "instruction":
+                for i in range(0, len(node.children)):
+                    name = node.children[i].name.split(" ")
+                    if name[1] == "return":
+                        return_instr(node.parent)
+                    elif name[1] == "N92":
+                        affect(node)
     return root
 
 
@@ -123,6 +133,22 @@ def rename(node):
     name = node.name.split(" ")
     if name[1] in dico_N.keys():
         node.name = name[0] + " " + dico_N[name[1]]
+
+
+def affect(node):
+    name = node.name.split(" ")
+    node.name = name[0] + " " + "affect :="
+    for i in range(0, len(node.children)):
+        name = node.children[i].name.split(" ")
+        if name[1] == "N92":
+            list_children = node.children[i].children
+            node.children[i].name = node.children[i].children[len(node.children[i].children) - 1].name
+            node.children[i].children = list_children[len(node.children[i].children) - 1].children
+
+
+def return_instr(node):
+    name = node.name.split(" ")
+    node.name = name[0] + " " + "return"
 
 
 def boucle_node(root):
