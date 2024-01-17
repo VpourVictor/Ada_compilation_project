@@ -234,6 +234,17 @@ def generate_final_AST(root):
 
     remove_duplicate_children_working(root)
 
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            name = node.name.split(" ")
+            if name[1] == "N8":
+                node.name = name[0] + " " + ">"
+                for i in range(0, len(node.children)):
+                    name = node.children[i].name.split(" ")
+                    if name[1] == ">":
+                        node.children[i].parent = None
+                        break
+
     return root
 
 
@@ -330,16 +341,15 @@ def delete_node(node):
     name = node.name.split(" ")
     if name[1] == "N8":
         children = node.children
-        for i in range(len(children)):
-            children[i].parent = node.parent
-            node.parent = None
+        if len(children) == 2:
+            for i in range(len(children)):
+                children[i].parent = node.parent
+                node.parent = None
     for i in range(0, len(node.children)):
         name = node.children[i].name.split(" ")
         if name[1] == "return":
             node.children[i].parent = None
             break
-
-
 
 
 def boucle_node(root):
@@ -405,7 +415,6 @@ def test_if(node, string):
                     sibling[i].parent = None
                     sibling[i + 1].parent = None
                     break
-
 
 
 def test_elsif(node, string):
@@ -475,14 +484,6 @@ def blocWhile(node):
             node.children[1].parent = node.children[0]
             node.children[1].parent = node.children[0]
 
-def blocWhile(node):
-    nom = node.name.split(" ")
-    if nom[1] == "instruction":
-        nom2 = node.children[0].name.split(" ")
-        if nom2[1] == "while":
-            node.children[2].parent = None
-            node.children[3].parent = None
-            node.children[3].parent = None
 
 
 if __name__ == '__main__':
