@@ -110,6 +110,12 @@ def switch_fonction(name, token_list, count_tmp, noeud):
         case 'N8':
             print("---------------------------------------------------------------------> entrée N8")
             result = fonction_N8(token_list, count_tmp, noeud)
+        case 'N800':
+            print("---------------------------------------------------------------------> entrée N800")
+            result = fonction_N800(token_list, count_tmp, noeud)
+        case 'N801':
+            print("---------------------------------------------------------------------> entrée N801")
+            result = fonction_N801(token_list, count_tmp, noeud)
         case 'N9':
             print("---------------------------------------------------------------------> entrée N9")
             result = fonction_N9(token_list, count_tmp, noeud)
@@ -187,9 +193,8 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
     if count_tmp == len(token_list) - 1:
         return True, count_tmp
 
-    print("On commence le rec local avec la lecture de : " + str(list_att[local]) + " liste locale : " + str(list_att))
+    # print("On commence le rec local avec la lecture de : " + str(list_att[local]) + " liste locale : " + str(list_att))
     if type(list_att[local]) == int:
-
         result = reader_carac(list_att[local], token_list, count_tmp)
         if result[0]:
             count_tmp = result[1]
@@ -201,15 +206,15 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
                 Node("" + str(count_tmp) + " " + "num(" + token_list[count_tmp - 1][1] + ")", parent=parent)
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("INT : On termine le tableau local, dernier terme lu = " + str(
-                    list_att[local]) + " avec count_tmp : ", count_tmp)
+                # print("INT : On termine le tableau local, dernier terme lu = " + str(
+                #     list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, parent
-            print(
-                "INT : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(list_att[local]) + " avec count_tmp : ",
-                count_tmp)
+            # print(
+            #     "INT : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(list_att[local]) + " avec count_tmp : ",
+            #     count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
-            print("INT : On a pas trouvé le bon caractère, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
+            # print("INT : On a pas trouvé le bon caractère, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
             return False, count_tmp, parent
     else:
         node = Node("" + str(count_tmp) + " " + str(list_att[local]), parent=parent)
@@ -218,11 +223,11 @@ def rec(list_att, token_list, count_tmp, count, local, parent):
             count_tmp = result[1]
             # cas où on est à la fin de la liste
             if local == len(list_att) - 1:
-                print("NON TERM : On termine le tableau local, dernier terme lu = " + str(
-                    list_att[local]) + " avec count_tmp : ", count_tmp)
+                # print("NON TERM : On termine le tableau local, dernier terme lu = " + str(
+                #     list_att[local]) + " avec count_tmp : ", count_tmp)
                 return True, count_tmp, node
-            print("NON TERM : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(
-                list_att[local]) + " avec count_tmp : ", count_tmp)
+            # print("NON TERM : On continue le local, ON RENVOIE ---------------------------------VRAI-------------------------------------- en lisant " + str(
+            #     list_att[local]) + " avec count_tmp : ", count_tmp)
             return rec(list_att, token_list, count_tmp, count, local + 1, parent)
         else:
             print("INT : La fonction n'est pas la bonne, ON RENVOIE FAUX avec count_tmp : ", count_tmp)
@@ -551,9 +556,7 @@ def fonction_N8(token_list, count, noeud):
     # N8 ::= 280
     # N8 ::= 262
     # N8 ::= 271
-    # N8 ::= 40 N8 EXPR1 EXPRA 41
-    # N8 ::= 40 EXPR1 EXPRA N8 41
-    # N8 ::= 40 N8 41
+    # N8 ::= 40 N800
     # N8 ::= 269 285
     # N8 ::= 285 40 A10 41
     # N8 ::= 287 34 288 40 N8 41
@@ -594,23 +597,9 @@ def fonction_N8(token_list, count, noeud):
         count = result[1]
         return True, count
 
-    # N8 ::= 40 N8 EXPR1 EXPRA 41
+    # N8 ::= 40 N800
     count_tmp = count
-    result = rec([40, 'N8', 'EXPR1', 'EXPRA', 41], token_list, count_tmp, count, 0, noeud)
-    if result[0]:  # ( N8 )
-        count = result[1]
-        return True, count
-
-    # N8 ::= 40 EXPR1 EXPRA N8 41
-    count_tmp = count
-    result = rec([40, 'EXPR1', 'EXPRA', 'N8', 41], token_list, count_tmp, count, 0, noeud)
-    if result[0]:  # ( EXPR1 EXPRA N8 )
-        count = result[1]
-        return True, count
-
-    # N8 ::= 40 N8 41
-    count_tmp = count
-    result = rec([40, 'N8', 41], token_list, count_tmp, count, 0, noeud)
+    result = rec([40, 'N800'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # ( N8 )
         count = result[1]
         return True, count
@@ -640,6 +629,42 @@ def fonction_N8(token_list, count, noeud):
     count_tmp = count
     result = rec(['EXPR1', 'EXPRA'], token_list, count_tmp, count, 0, noeud)
     if result[0]:  # ' N8 '
+        count = result[1]
+        return True, count
+
+    return False, count
+
+
+def fonction_N800(token_list, count, noeud):  # N800 ::= EXPR1 EXPRA N8 41 / N800 ::= N8 N801
+    # N800 ::= EXPR1 EXPRA N8 41
+    count_tmp = count
+    result = rec(['EXPR1', 'EXPRA', 'N8', 41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # ( EXPR1 EXPRA N8 )
+        count = result[1]
+        return True, count
+
+    # N800 ::= N8 N801
+    count_tmp = count
+    result = rec(['N8', 'N801'], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  # ( N8 N801 )
+        count = result[1]
+        return True, count
+
+    return False, count
+
+
+def fonction_N801(token_list, count, noeud):  # N801 ::= EXPR1 EXPRA 41 / N801 ::= 41
+    # N801 ::= EXPR1 EXPRA 41
+    count_tmp = count
+    result = rec(['EXPR1', 'EXPRA', 41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:
+        count = result[1]
+        return True, count
+
+    # N801 ::= 41
+    count_tmp = count
+    result = rec([41], token_list, count_tmp, count, 0, noeud)
+    if result[0]:  #
         count = result[1]
         return True, count
 
