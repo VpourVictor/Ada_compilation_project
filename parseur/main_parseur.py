@@ -249,8 +249,40 @@ def generate_final_AST(root):
     for node in PreOrderIter(root):
         if node.name != "N1":
             paramVar(node)
+            continue
+
+    rename_N1(root)
+    rename_all_N2(root)
+
+    clean(root)
 
     return root
+
+
+def rename_N1(root) :
+    for node in PreOrderIter(root):
+        if node.name == "N1":
+            node.name = "Fichier"
+            break
+
+
+def rename_N2(node) :
+    node_nom = node.name.split(" ")
+    if node_nom[1] == "N2":
+        # on récupère dans un tableau les noms fils
+        if node.children[0].name.split(" ")[1] == "function" :
+            node.name = node.children[0].name
+            node.children[0].parent = None
+        elif node.children[0].name.split(" ")[1] == "procedure" :
+            node.name = node.children[0].name
+            node.children[0].parent = None
+
+
+def rename_all_N2(root) :
+    for node in PreOrderIter(root):
+        node_nom = node.name.split(" ")
+        if len(node_nom) == 2 :
+            rename_N2(node)
 
 
 def hauteur_arbre(root):
@@ -483,7 +515,8 @@ def paramVar(node):
     name = node.name.split(" ")
     if name[1]=="N6":
         nameParent = node.parent.name.split(" ")
-        node.parent.name = nameParent[0] + " declParam"
+        if nameParent[1] != "N2":
+            node.parent.name = nameParent[0] + " declParam"
         children = node.children
         for i in range(len(children)):
             nameChild = children[i].name.split(" ")
