@@ -230,9 +230,37 @@ def generate_final_AST(root):
         if node.name != "N1":
             cas_difference(node)
 
+    rename_N1(root)
+    rename_all_N2(root)
+
     remove_duplicate_children_working(root)
 
     return root
+
+def rename_N1(root) :
+    for node in PreOrderIter(root):
+        if node.name == "N1":
+            node.name = "Fichier"
+            break
+
+def rename_N2(node) :
+    node_nom = node.name.split(" ")
+    if node_nom[1] == "N2":
+        # on récupère dans un tableau les noms fils
+        if node.children[0].name.split(" ")[1] == "function" :
+            node.name = node.children[0].name
+            node.children[0].parent = None
+        elif node.children[0].name.split(" ")[1] == "procedure" :
+            node.name = node.children[0].name
+            node.children[0].parent = None
+
+def rename_all_N2(root) :
+    for node in PreOrderIter(root):
+        node_nom = node.name.split(" ")
+        if len(node_nom) == 2 :
+            rename_N2(node)
+        #elif len(node_nom)
+
 
 
 def hauteur_arbre(root):
