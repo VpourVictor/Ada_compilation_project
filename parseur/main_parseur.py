@@ -246,6 +246,10 @@ def generate_final_AST(root):
                         node.children[i].parent = None
                         break
 
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            paramVar(node)
+
     return root
 
 
@@ -473,6 +477,20 @@ def test_else(node):
             temp = node.parent.parent
             node.parent.parent = None
             node.parent = temp
+
+
+def paramVar(node):
+    name = node.name.split(" ")
+    if name[1]=="N6":
+        nameParent = node.parent.name.split(" ")
+        node.parent.name = nameParent[0] + " declParam"
+        children = node.children
+        for i in range(len(children)):
+            nameChild = children[i].name.split(" ")
+            if nameChild[1] == ":":
+                children[i].parent = None
+                break
+        node.name = name[0]+ " Param"
 
 
 def blocWhile(node):

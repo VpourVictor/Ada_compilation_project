@@ -5,7 +5,7 @@ procedure SmallFunction is
 
    procedure Print(X: Integer) is
    begin
-      Put(X);
+      test1;
    end Print;
 
 begin
