@@ -112,10 +112,10 @@ def delete_all_nodes(root):
 
 
 def operation(node):
+    op = ["+", "-", "*", "/"]
     for i in range(0, len(node.children)):
         # si un noeud à un enfant qui est un opérateur
         name = node.children[i].name.split(" ")
-        op = ["+", "-", "*", "/"]
         if name[1] in op:
             # les frères de l'opérateur deviennent les enfants du père du noeud
             freres = node.children[i].siblings
@@ -153,6 +153,26 @@ def removeA2(node):
                 A2_destroyer(node)
 
 
+def cas_difference(node):
+    if node.name.split(" ")[1] == "condExpr":
+        print("dfnkdsnkjnskjnfkdsnfdslknflkdsnflkdsnflkdsnflkdsnfdlksndsnflkdsnf")
+        children = node.children
+        for i in range(0, len(children)):
+            name = children[i].name.split(" ")
+            if name[1] == "/":
+                enfant = children[i].children
+                for j in range(0, len(enfant)):
+                    if enfant[j].name.split(" ")[1] != "=":
+                        enfant[j].parent = node
+
+        for i in range(0, len(children)):
+            name = children[i].name.split(" ")
+            if name[1] == "/":
+                children[i].parent = None
+
+        node.name = node.name.split(" ")[0] + " " + "/="
+
+
 def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
@@ -180,7 +200,6 @@ def generate_final_AST(root):
         for node in PostOrderIter(root):
             clean(node)
 
-
     for node in PreOrderIter(root):
         if node.name != "N1":
             operation(node)
@@ -191,7 +210,6 @@ def generate_final_AST(root):
                 name = node.name.split(" ")
                 if name[1][:4] == "EXPR":
                     operation(node)
-
 
     for i in range(0, 5):
         for node in PreOrderIter(root):
@@ -207,6 +225,12 @@ def generate_final_AST(root):
     for node in PreOrderIter(root):
         if node.name != "N1":
             operationCond(node)
+
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            cas_difference(node)
+
+    remove_duplicate_children_working(root)
 
     return root
 
@@ -266,17 +290,6 @@ def operationCond(node):
     # si le noeud à 4 fils
     elif len(node.children) == 4:
         reduce_ope4(node)
-    elif len(node.children) >= 5:
-        # c'est à dire que le noeud à 5 ou plus,
-        # il faut reformer dans le bon ordre les noeuds des opérations
-        # on récupère dans un tableau tous les fils
-        fils = []
-        for i in range(len(node.children)):
-            fils.append(node.children[i].name)
-
-        fils = sorted(fils)
-        for i in range(len(node.children)):
-            node.children[i].name = fils[i]
 
 
 def countleaves(node):
