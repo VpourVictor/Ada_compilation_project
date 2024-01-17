@@ -129,6 +129,7 @@ def boucle_node(root):
     for node in PreOrderIter(root):
         if node.name != "N1":
             rename(node)
+            blocWhile(node)
 
 
 def test_logique(root):
@@ -210,8 +211,18 @@ def test_else(node, string):
                     sibling[i].parent = node
                     break
 
+def blocWhile(node):
+    nom = node.name.split(" ")
+    if nom[1] == "instruction":
+        nom2 = node.children[0].name.split(" ")
+        if nom2[1] == "while":
+            node.children[2].parent = None
+            node.children[3].parent = None
+            node.children[3].parent = None
+
 
 if __name__ == '__main__':
+    """
     print("On va maintenant tester notre parseur")
     print("Pour chaque test, on va afficher la liste de token renvoyé par le lexeur, puis générer l'arbre syntaxique "
           "associé")
@@ -239,15 +250,15 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
     generate_tree("tree_if_elif.png")
-
+"""
     print("On va maintenant tester si notre parseur fonctionne avec un programme qui contient des if et des while :")
     token_list = file.get_token("exemples/exemple_if_while.ada")
     print(token_list)
     root = Node('N1')
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
-    generate_tree("tree_if_while.png")
-
+    generate_tree("tree_if_while2.png")
+"""
     print("Le test qui suit vise à montrer que l'on traite bien le cas où notre grammaire n'est pas LL1 (/=, /) :")
     token_list = file.get_token("exemples/exemple_division_difference.ada")
     print(token_list)
@@ -298,3 +309,4 @@ if __name__ == '__main__':
     # Display the tree structure
     # for pre, _, node in RenderTree(root):
     #     print(f"{pre}{node.name}")
+"""
