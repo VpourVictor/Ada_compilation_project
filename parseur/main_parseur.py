@@ -1,4 +1,4 @@
-from anytree import Node, RenderTree, search, PreOrderIter
+from anytree import Node, RenderTree, search, PreOrderIter, PostOrderIter
 from anytree.exporter import DotExporter
 
 import lexeur.file_to_code_ter as file
@@ -111,21 +111,40 @@ def delete_all_nodes(root):
         if supprimer_noeuds_un_seul_fils(node):
             delete_all_nodes(root)
         if node.name != 'N1':
-            supprimer_Expr(node)
+            #supprimer_Expr(node)
+            continue
+def addBlockNode(node):
+    name = node.name.split(" ")
+    x = Node(name[0]+" BLOCK", node.parent)
+    node.parent = x
+    return x
+
+def clean(node):
+    children = node.children
+    for j in range(0, len(children)-1):
+        for i in range(j+1,len(children)):
+            if int(children[j].name.split(" ")[0]) > int(children[i].name.split(" ")[0]):
+                children[j].parent = None
+                children[j].parent = node
+
+def removeA2(node):
+    for node in PreOrderIter(node):
+        if node.name != "N1":
+            name = node.name.split(" ")
+            if name[1] == "A2":
+                addBlockNode(node)
+                A2_destroyer(node)
 
 def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
     remove_duplicate_children_working(root)
-    # delete_all_duplicates(root)
     boucle_node(root)
     test_logique(root)
+    A2counter = 0
     for node in PreOrderIter(root):
         if node.name != "N1":
             name = node.name.split(" ")
-            if name[1] == "A2" or name[1] == "Expr":
-                print(node.name)
-                A2_destroyerBis(node)
             if name[1] == "instruction":
                 for i in range(0, len(node.children)):
                     name = node.children[i].name.split(" ")
@@ -133,9 +152,20 @@ def generate_final_AST(root):
                         return_instr(node.parent)
                     elif name[1] == "N92":
                         affect(node)
+            if name[1] == "A2":
+                A2counter +=1
+    for i in range(A2counter):
+        removeA2(root)
+    clean(root)
+    h = hauteur_arbre(root)
+    for i in range(h):
+        for node in PostOrderIter(root):
+            clean(node)
+
     return root
 
-
+def hauteur_arbre(root):
+    return max(node.depth for node in PreOrderIter(root))
 def countleaves(node):
     return sum(1 for _ in PreOrderIter(node, filter_=lambda x: x.is_leaf))
 
@@ -168,26 +198,16 @@ def boucle_node(root):
             rename(node)
             blocWhile(node)
 def A2_destroyer(root):
-    name = root.name.split(" ")
-    root.name = name[0] + " Expr"
-    for node in PreOrderIter(root):
-        nameNode = node.name.split(" ")
-        if nameNode[1] == "A2":
-            children = node.children
-            for i in range(len(children)):
-                children[i].parent = node.parent
-            node.parent = None
 
-def A2_destroyerBis(node):
-    name = node.name.split(" ")
-    node.name = name[0] + " Expr"
-    parent = node.parent
-    if parent.name != "N1":
-        if (parent.name.split(" ")[1] == "A2" or parent.name.split(" ")[1] == "Expr"):
-            children = node.children
-            for i in range(len(children)):
-                children[i].parent = node.parent
-            node.parent = None
+    children = root.children
+    for i in range(len(children)):
+        nameChildren = children[i].name.split(" ")
+        if nameChildren[1] == "A2":
+            A2_destroyer(children[i])
+    children = root.children
+    for j in range(len(children)):
+        children[j].parent = root.parent
+    root.parent = None
 
 def test_logique(root):
     for node in PreOrderIter(root):
@@ -216,13 +236,14 @@ def test_if(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                #if (nameS[1] == "A2"):
-                    #A2_destroyer(sibling[i])
-                    #sibling[i].parent = node
-                    #break
                 if(nameS[1] == "instruction"):
                     x = Node(nameS[0] + " Expr", node)
                     sibling[i].parent = x
+                    break
+                if(nameS[1] == "A2"):
+                    x = addBlockNode(sibling[i])
+                    x.parent = node
+                    A2_destroyer(sibling[i])
                     break
             sibling = node.siblings
             for i in range(0, len(sibling)):
@@ -255,13 +276,15 @@ def test_elsif(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                #if (nameS[1] == "A2"):
-                #    A2_destroyer(sibling[i])
-                #    sibling[i].parent = node
-                #    break
+
                 if(nameS[1] == "instruction"):
                     x = Node(nameS[0] + " Expr", node)
                     sibling[i].parent = x
+                    break
+                if(nameS[1] == "A2"):
+                    x = addBlockNode(sibling[i])
+                    x.parent = node
+                    A2_destroyer(sibling[i])
                     break
             temp = node.parent.parent
             node.parent.parent = None
@@ -274,15 +297,15 @@ def test_else(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                #if (nameS[1] == "A2"):
-                #    A2_destroyer(sibling[i])
-                #    sibling[i].parent = node
-                #    break
                 if (nameS[1] == "instruction"):
                     x = Node(nameS[0] + " Expr", node)
                     sibling[i].parent = x
                     break
-
+                if(nameS[1] == "A2"):
+                    x = addBlockNode(sibling[i])
+                    x.parent = node
+                    A2_destroyer(sibling[i])
+                    break
             temp = node.parent.parent
             node.parent.parent = None
             node.parent = temp
@@ -295,6 +318,10 @@ def blocWhile(node):
             node.children[2].parent = None
             node.children[3].parent = None
             node.children[3].parent = None
+            node.children[1].name = node.children[1].name.split(" ")[0] + " condExpr"
+            node.children[2].name = node.children[2].name.split(" ")[0] + " Expr"
+            node.children[1].parent = node.children[0]
+            node.children[1].parent = node.children[0]
 
 
 if __name__ == '__main__':
@@ -333,8 +360,9 @@ if __name__ == '__main__':
     root = Node('N1')
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
-    generate_tree("tree_if_while_bis.png")
-"""
+    generate_tree("tree_if_while.png")
+
+"""   
     print("Le test qui suit vise à montrer que l'on traite bien le cas où notre grammaire n'est pas LL1 (/=, /) :")
     token_list = file.get_token("exemples/exemple_division_difference.ada")
     print(token_list)
