@@ -15,7 +15,7 @@ procedure Programme_Imbrique is
       end Multiplication;
 
    begin
-      return Addition(a, b);
+      return a + b / c;
    end Addition_Multiplication;
 
    -- Déclaration de variables
