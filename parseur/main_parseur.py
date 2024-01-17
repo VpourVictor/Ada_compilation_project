@@ -117,7 +117,6 @@ def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
     remove_duplicate_children_working(root)
-    # delete_all_duplicates(root)
     boucle_node(root)
     test_logique(root)
     for node in PreOrderIter(root):
