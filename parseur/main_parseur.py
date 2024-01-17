@@ -518,6 +518,7 @@ def gestionA6(node):
 
 
 if __name__ == '__main__':
+    """
     print("On va maintenant tester notre parseur")
     print("Pour chaque test, on va afficher la liste de token renvoyé par le lexeur, puis générer l'arbre syntaxique "
           "associé")
@@ -545,7 +546,7 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
     generate_tree("tree_if_elif.png")
-
+"""
     print("On va maintenant tester si notre parseur fonctionne avec un programme qui contient des if et des while :")
     token_list = file.get_token("exemples/exemple_if_while.ada")
     print(token_list)
@@ -553,7 +554,7 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
     generate_tree("tree_if_while.png")
-
+"""
     print("Le test qui suit vise à montrer que l'on traite bien le cas où notre grammaire n'est pas LL1 (/=, /) :")
     token_list = file.get_token("exemples/exemple_division_difference.ada")
     print(token_list)
@@ -600,7 +601,7 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     generate_final_AST(root)
     generate_tree("exemple_erreur_ortho.png")
-
+"""
     # Display the tree structure
     # for pre, _, node in RenderTree(root):
     #     print(f"{pre}{node.name}")
