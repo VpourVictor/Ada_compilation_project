@@ -4,6 +4,10 @@ from anytree.exporter import DotExporter
 import lexeur.file_to_code_ter as file
 import parseur.functions
 
+# def delete_EXPR1(root):
+#     for pre, _, node in RenderTree(root):
+#         if "N9" in node.name :
+
 
 def generate_tree(name_file):
     try:
@@ -18,9 +22,11 @@ def delete_leef_eps(racine):
         if isDelete(node.name):
             node.parent = None
 
+
 def delete_leef_epsX(racine):
     for i in range(0, racine.height):
         delete_leef_eps(racine)
+
 
 def isDelete(name):
     nom = name.split(" ")
@@ -38,6 +44,41 @@ def supprimer_noeuds_un_seul_fils(node):
         return True
     return False
 
+def remove_duplicate_parent_links(node):
+    children = node.children
+    l = len(children)
+
+    if l == 2 and children[0].name == children[1].name :
+        if children[0].is_leaf :
+            children[0].parent = None
+        else :
+            children[1].parent = None
+        return True
+
+    elif l > 1:
+
+        L = []
+        for i in range(0, l):
+            L.append(children[i].name)
+        j = 0
+        nb_of_del = 0
+        while j != l - 1 :
+            if children[j+nb_of_del].name in (L[:j] + L[j + 1:]):
+                nb_of_del += 1
+                children[j+nb_of_del].parent = None
+                l -= 1
+                del L[j]
+            j += 1
+        if nb_of_del != 0 :
+            return True
+
+    return False
+
+def delete_all_duplicates(root):
+    for node in PreOrderIter(root):
+        if remove_duplicate_parent_links(node):
+            delete_all_duplicates(root)
+
 def supprimer_Expr(node):
     name = node.name.split(" ")
     if(name[1][0] == "E"):
@@ -54,7 +95,6 @@ def delete_all_nodes(root):
             delete_all_nodes(root)
         if(node.name != "N1"):
             supprimer_Expr(node)
-            rename(node)
 
 dico_N = {"N9" : "instruction" }
 
@@ -62,6 +102,88 @@ def rename(node):
     name = node.name.split(" ")
     if(name[1] in dico_N.keys()):
         node.name = name[0] + " " + dico_N[name[1]]
+
+def boucle_node(root):
+    for node in PreOrderIter(root):
+        if(node.name != "N1"):
+            rename(node)
+
+def test_logique(root):
+    for node in PreOrderIter(root):
+        test_if(node, "Expr")
+        test_elsif(node, "Expr")
+        test_else(node, "Expr")
+
+def test_if(node, string):
+    if (node.name != "N1"):
+        name = node.name.split(" ")[1]
+        if name == "if":
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if (nameS[1] == "N8"):
+                    sibling[i].name = nameS[0] + " " + "condExpr"
+                    sibling[i].parent = node
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if (nameS[1] == "then"):
+                    sibling[i].parent = None
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if (nameS[1] == "instruction"):
+                    sibling[i].name = nameS[0] + " " + string
+                    sibling[i].parent = node
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")[1]
+                nameS2 = sibling[i + 1].name.split(" ")[1]
+                if (nameS == "end" and nameS2 == "if"):
+                    sibling[i].parent = None
+                    sibling[i + 1].parent = None
+                    break
+
+
+def test_elsif(node, string):
+    if (node.name != "N1"):
+        name = node.name.split(" ")[1]
+        if name == "elsif":
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if (nameS[1] == "N8"):
+                    sibling[i].name = nameS[0] + " " + "condExpr"
+                    sibling[i].parent = node
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if (nameS[1] == "then"):
+                    sibling[i].parent = None
+                    break
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if (nameS[1] == "instruction"):
+                    sibling[i].name = nameS[0] + " " + string
+                    sibling[i].parent = node
+                    break
+
+def test_else(node, string):
+    if (node.name != "N1"):
+        name = node.name.split(" ")[1]
+        if name == "else":
+            sibling = node.siblings
+            for i in range(0, len(sibling)):
+                nameS = sibling[i].name.split(" ")
+                if (nameS[1] == "instruction"):
+                    sibling[i].name = nameS[0] + " " + string
+                    sibling[i].parent = node
+                    break
 
 if __name__ == '__main__':
     print("On va maintenant tester notre parseur")
@@ -75,10 +197,9 @@ if __name__ == '__main__':
     print(parseur.functions.fonction_N1(token_list, root))
     delete_leef_epsX(root)
     delete_all_nodes(root)
-    for node in PreOrderIter(root):
-        if(len(node.children) != 0):
-            for i in range(len(node.children)):
-                print(node.children[i].name)
+    #delete_all_duplicates(root)
+    boucle_node(root)
+    test_logique(root)
     generate_tree("tree_calcul3.png")
     result = search.findall(root, filter_=lambda node: node.name in ("33 285"))
     print(result)
@@ -122,7 +243,7 @@ if __name__ == '__main__':
     # print(parseur.functions.fonction_N1(token_list, root))
     # delete_leef_epsX(root)
     # generate_tree("tree_expression_arithmetique.png")
-    #
+
     # print("On va maintenant tester un exemple qui contient des fonctions imbriquées :")
     # token_list = file.get_token("exemples/exemple_fonctions_imb.ada")
     # print(token_list)
