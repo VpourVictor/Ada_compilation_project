@@ -14,6 +14,6 @@ begin
    Result2 := (A / (B + C));
    Result3 := ((A / (B + C)) * D);
    Result4 := ((A + B) - C * D);
-   Result5 := A + B - C / D;
+   Result5 := A * B + C * D;
 
 end ArithmeticExample;
