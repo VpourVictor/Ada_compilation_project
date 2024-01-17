@@ -33,21 +33,19 @@ def delete_leef_epsX(racine):
 
 def isDelete(name):
     nom = name.split(" ")
-    return nom[1][0].isupper() or nom[1] in [".", ",", "(", ")", ";", "is", "begin", "with", "id(Ada)", "id(Text_IO)",
-                                             "use"]
+    return nom[1][0].isupper() or nom[1] in [".", ",", "(", ")", ";", "is", "begin", "with", "id(Ada)", "id(Text_IO)", "use"]
 
 
 def supprimer_noeuds_un_seul_fils(node):
     children = node.children
-    if len(children) == 1:
-        # if len(children) == 1 and not children[0].is_leaf:
+    if len(children) == 1 :
+        #if len(children) == 1 and not children[0].is_leaf:
         # Si le nœud a un seul fils qui n'est pas une feuille, le supprimer
         parent = node.parent
         node.parent = None  # Cela supprime le nœud de son parent
         children[0].parent = parent
         return True
     return False
-
 
 def remove_duplicate_parent_links(node):
     children = node.children
@@ -80,7 +78,17 @@ def remove_duplicate_parent_links(node):
 
     return False
 
-
+def remove_duplicate_children_working(node):
+    # ajout d'un dictionnaire pour compter les children qui ont le meme père
+    count_children = {}
+    for parent in PreOrderIter(node):
+        count_children[parent] = {}
+        for child in parent.children:
+            if child.name not in count_children[parent]:
+                count_children[parent][child.name] = child
+            else: # On ajoute les enfants du noeud qu'on supprime
+                count_children[parent][child.name].children += child.children
+                child.parent = None
 def delete_all_duplicates(root):
     for node in PreOrderIter(root):
         if remove_duplicate_parent_links(node):
@@ -108,10 +116,20 @@ def delete_all_nodes(root):
 def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
+    remove_duplicate_children_working(root)
     # delete_all_duplicates(root)
-
     boucle_node(root)
     test_logique(root)
+    for node in PreOrderIter(root):
+        if node.name != "N1":
+            name = node.name.split(" ")
+            if name[1] == "instruction":
+                for i in range(0, len(node.children)):
+                    name = node.children[i].name.split(" ")
+                    if name[1] == "return":
+                        return_instr(node.parent)
+                    elif name[1] == "N92":
+                        affect(node)
     return root
 
 
@@ -125,10 +143,36 @@ def rename(node):
         node.name = name[0] + " " + dico_N[name[1]]
 
 
+def affect(node):
+    name = node.name.split(" ")
+    node.name = name[0] + " " + "affect :="
+    for i in range(0, len(node.children)):
+        name = node.children[i].name.split(" ")
+        if name[1] == "N92":
+            list_children = node.children[i].children
+            node.children[i].name = node.children[i].children[len(node.children[i].children) - 1].name
+            node.children[i].children = list_children[len(node.children[i].children) - 1].children
+
+
+def return_instr(node):
+    name = node.name.split(" ")
+    node.name = name[0] + " " + "return"
+
+
 def boucle_node(root):
     for node in PreOrderIter(root):
         if node.name != "N1":
             rename(node)
+def A2_destroyer(root):
+    name = root.name.split(" ")
+    root.name = name[0] + " Expr"
+    for node in PreOrderIter(root):
+        nameNode = node.name.split(" ")
+        if nameNode[1] == "A2":
+            children = node.children
+            for i in range(len(children)):
+                children[i].parent = node.parent
+            node.parent = None
 
 
 def test_logique(root):
@@ -145,7 +189,7 @@ def test_if(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if nameS[1] == "N8":
+                if (nameS[1] == "N8"):
                     sibling[i].name = nameS[0] + " " + "condExpr"
                     sibling[i].parent = node
                     break
@@ -158,9 +202,13 @@ def test_if(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if nameS[1] == "instruction":
-                    sibling[i].name = nameS[0] + " " + string
+                if (nameS[1] == "A2"):
+                    A2_destroyer(sibling[i])
                     sibling[i].parent = node
+                    break
+                if(nameS[1] == "instruction"):
+                    x = Node(nameS[0] + " Expr", node)
+                    sibling[i].parent = x
                     break
             sibling = node.siblings
             for i in range(0, len(sibling)):
@@ -170,6 +218,7 @@ def test_if(node, string):
                     sibling[i].parent = None
                     sibling[i + 1].parent = None
                     break
+
 
 
 def test_elsif(node, string):
@@ -192,11 +241,17 @@ def test_elsif(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if nameS[1] == "instruction":
-                    sibling[i].name = nameS[0] + " " + string
+                if (nameS[1] == "A2"):
+                    A2_destroyer(sibling[i])
                     sibling[i].parent = node
                     break
-
+                if(nameS[1] == "instruction"):
+                    x = Node(nameS[0] + " Expr", node)
+                    sibling[i].parent = x
+                    break
+            temp = node.parent.parent
+            node.parent.parent = None
+            node.parent = temp
 
 def test_else(node, string):
     if node.name != "N1":
@@ -205,11 +260,18 @@ def test_else(node, string):
             sibling = node.siblings
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
-                if nameS[1] == "instruction":
-                    sibling[i].name = nameS[0] + " " + string
+                if (nameS[1] == "A2"):
+                    A2_destroyer(sibling[i])
                     sibling[i].parent = node
                     break
+                if (nameS[1] == "instruction"):
+                    x = Node(nameS[0] + " Expr", node)
+                    sibling[i].parent = x
+                    break
 
+            temp = node.parent.parent
+            node.parent.parent = None
+            node.parent = temp
 
 if __name__ == '__main__':
     print("On va maintenant tester notre parseur")
