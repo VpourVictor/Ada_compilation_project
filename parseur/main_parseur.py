@@ -78,7 +78,17 @@ def remove_duplicate_parent_links(node):
 
     return False
 
-
+def remove_duplicate_children_working(node):
+    # ajout d'un dictionnaire pour compter les children qui ont le meme père
+    count_children = {}
+    for parent in PreOrderIter(node):
+        count_children[parent] = {}
+        for child in parent.children:
+            if child.name not in count_children[parent]:
+                count_children[parent][child.name] = child
+            else: # On ajoute les enfants du noeud qu'on supprime
+                count_children[parent][child.name].children += child.children
+                child.parent = None
 def delete_all_duplicates(root):
     for node in PreOrderIter(root):
         if remove_duplicate_parent_links(node):
@@ -106,6 +116,7 @@ def delete_all_nodes(root):
 def generate_final_AST(root):
     delete_leef_epsX(root)
     delete_all_nodes(root)
+    remove_duplicate_children_working(root)
     # delete_all_duplicates(root)
     boucle_node(root)
     test_logique(root)
