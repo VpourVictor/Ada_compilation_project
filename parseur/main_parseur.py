@@ -139,7 +139,7 @@ def clean(node):
     children = node.children
     for j in range(0, len(children)-1):
         for i in range(j+1,len(children)):
-            if int(children[j].name.split(" ")[0])> int(children[i].name.split(" ")[0]):
+            if int(children[j].name.split(" ")[0]) > int(children[i].name.split(" ")[0]):
                 children[j].parent = None
                 children[j].parent = node
 
@@ -344,6 +344,7 @@ def boucle_node(root):
     for node in PreOrderIter(root):
         if node.name != "N1":
             rename(node)
+            blocWhile(node)
 
 
 def A2_destroyer(root):
@@ -360,9 +361,9 @@ def A2_destroyer(root):
 
 def test_logique(root):
     for node in PreOrderIter(root):
-        test_if(node, "Expr")
-        test_elsif(node, "Expr")
-        test_else(node, "Expr")
+        test_if(node, "BLOCK")
+        test_elsif(node, "BLOCK")
+        test_else(node, "BLOCK")
 
 
 def test_if(node, string):
@@ -386,7 +387,7 @@ def test_if(node, string):
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
                 if(nameS[1] == "instruction"):
-                    x = Node(nameS[0] + " Expr", node)
+                    x = Node(nameS[0] + " BLOCK", node)
                     sibling[i].parent = x
                     break
                 if(nameS[1] == "A2"):
@@ -427,7 +428,7 @@ def test_elsif(node, string):
                 nameS = sibling[i].name.split(" ")
 
                 if(nameS[1] == "instruction"):
-                    x = Node(nameS[0] + " Expr", node)
+                    x = Node(nameS[0] + " BLOCK", node)
                     sibling[i].parent = x
                     break
                 if(nameS[1] == "A2"):
@@ -447,7 +448,7 @@ def test_else(node, string):
             for i in range(0, len(sibling)):
                 nameS = sibling[i].name.split(" ")
                 if (nameS[1] == "instruction"):
-                    x = Node(nameS[0] + " Expr", node)
+                    x = Node(nameS[0] + " BLOCK", node)
                     sibling[i].parent = x
                     break
                 if(nameS[1] == "A2"):
@@ -459,7 +460,31 @@ def test_else(node, string):
             node.parent.parent = None
             node.parent = temp
 
+def blocWhile(node):
+    nom = node.name.split(" ")
+    if nom[1] == "instruction":
+        nom2 = node.children[0].name.split(" ")
+        if nom2[1] == "while":
+            node.children[2].parent = None
+            node.children[3].parent = None
+            node.children[3].parent = None
+            node.children[1].name = node.children[1].name.split(" ")[0] + " condExpr"
+            node.children[2].name = node.children[2].name.split(" ")[0] + " Expr"
+            node.children[1].parent = node.children[0]
+            node.children[1].parent = node.children[0]
+
+def blocWhile(node):
+    nom = node.name.split(" ")
+    if nom[1] == "instruction":
+        nom2 = node.children[0].name.split(" ")
+        if nom2[1] == "while":
+            node.children[2].parent = None
+            node.children[3].parent = None
+            node.children[3].parent = None
+
+
 if __name__ == '__main__':
+
     print("On va maintenant tester notre parseur")
     print("Pour chaque test, on va afficher la liste de token renvoyé par le lexeur, puis générer l'arbre syntaxique "
           "associé")
