@@ -6,7 +6,7 @@ begin
    X := 10;
    Y := 20;
 
-   Sum := X + Y;
+   somme := X + Y;
 
    -- Perform some other operations...
    -- You can add more code here as needed.
