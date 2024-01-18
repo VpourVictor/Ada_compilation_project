@@ -10,7 +10,6 @@ dico_N = {"N9": "instruction"}
 def generate_tree(name_file):
     try:
         DotExporter(root).to_picture(filename=name_file)
-        print("Tree visualization saved")
     except ImportError:
         print("Graphviz not installed. Unable to create graphical representation.")
 
@@ -559,7 +558,8 @@ if __name__ == '__main__':
     token_list = file.get_token("exemples/exemple_calcul.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_calcul.png")
     generate_final_AST(root)
     generate_tree("tree_calcul.png")
 
@@ -567,7 +567,8 @@ if __name__ == '__main__':
     token_list = file.get_token("exemples/exemple_double_procedure.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_double_procedure.png")
     generate_final_AST(root)
     generate_tree("tree_double_procedure.png")
 
@@ -575,7 +576,8 @@ if __name__ == '__main__':
     token_list = file.get_token("exemples/exemple_if_elif.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_if_elif.png")
     generate_final_AST(root)
     generate_tree("tree_if_elif.png")
 
@@ -583,7 +585,8 @@ if __name__ == '__main__':
     token_list = file.get_token("exemples/exemple_if_while.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_if_while.png")
     generate_final_AST(root)
     generate_tree("tree_if_while.png")
 
@@ -591,7 +594,8 @@ if __name__ == '__main__':
     token_list = file.get_token("exemples/exemple_division_difference.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_division_difference.png")
     generate_final_AST(root)
     generate_tree("tree_division_difference.png")
 
@@ -599,7 +603,8 @@ if __name__ == '__main__':
     token_list = file.get_token("exemples/exemple_expression_arithmetique.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_expression_arithmetique.png")
     generate_final_AST(root)
     generate_tree("tree_expression_arithmetique.png")
 
@@ -607,7 +612,8 @@ if __name__ == '__main__':
     token_list = file.get_token("exemples/exemple_fonctions_imb.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_fonctions_imb.png")
     generate_final_AST(root)
     generate_tree("tree_fonctions_imb.png")
 
@@ -615,7 +621,8 @@ if __name__ == '__main__':
     token_list = file.get_token("exemples/exemple_mixte.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_mixte.png")
     generate_final_AST(root)
     generate_tree("tree_mixte.png")
 
@@ -623,16 +630,19 @@ if __name__ == '__main__':
     token_list = file.get_token("exemples/exemple.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_exemple.png")
     generate_final_AST(root)
     generate_tree("tree_exemple.png")
 
+    print("On va maintenant tester un exemple qui contient des erreurs d'orthographe :")
     token_list = file.get_token("exemples/exemple_erreur_ortho.ada")
     print(token_list)
     root = Node('N1')
-    print(parseur.functions.fonction_N1(token_list, root))
+    parseur.functions.fonction_N1(token_list, root)
+    generate_tree("parse_tree_exemple_erreur_ortho.png")
     generate_final_AST(root)
-    generate_tree("exemple_erreur_ortho.png")
+    generate_tree("tree_exemple_erreur_ortho.png")
 
     # Display the tree structure
     # for pre, _, node in RenderTree(root):
